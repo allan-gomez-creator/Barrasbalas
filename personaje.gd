@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
-@export var speed = 4.0
-@export var gravedad = 9.8
-@export var fuerza_salto = 6.0
+@export var speed = 5.0
+@export var gravedad = 20.0
+@export var altura_salto = 1.5
 @onready var anim = $Modelo/AnimationPlayer
 
 # Enchufes: otros scripts (las acciones del juego) cambian estas tres variables.
@@ -15,7 +15,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravedad * delta
 	elif Input.is_action_just_pressed("saltar"):
-		velocity.y = fuerza_salto
+		velocity.y = sqrt(2 * gravedad * altura_salto)
 
 	var lado = Input.get_axis("move_left", "move_right")
 	velocity.x = lado * speed * multiplicador + empuje.x
@@ -33,8 +33,6 @@ func _physics_process(delta):
 
 	move_and_slide()
 	_prueba()
-
-
 # ---------------------------------------------------------------------------
 # PRUEBAS AUTOMÁTICAS. No hace falta entender esta parte: en el Inspector del
 # Personaje elijan "Prueba" (y, si la prueba usa una acción, escriban su nombre
