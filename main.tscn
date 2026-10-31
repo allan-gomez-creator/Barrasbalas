@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bj0372xnq02wk" path="res://personaje.gd" id="1_pj"]
 [ext_resource type="PackedScene" uid="uid://biu6tppn8ml1q" path="res://personaje/character-male-a.glb" id="2_modelo"]
+[ext_resource type="Script" uid="uid://dgkhs3olsfacw" path="res://apuntar.gd" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://c5wlgaqocvngx" path="res://tacleador.tscn" id="3_h2yge"]
 
 [sub_resource type="ProceduralSkyMaterial" id="CieloMat"]
@@ -31,6 +32,10 @@ size = Vector3(3, 0.4, 4)
 [sub_resource type="CapsuleShape3D" id="Capsula"]
 radius = 0.35
 height = 1.75
+
+[sub_resource type="BoxMesh" id="BoxMesh_xrivr"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xrivr"]
 
 [node name="Main" type="Node3D" unique_id=1865053807]
 
@@ -88,6 +93,7 @@ projection = 1
 size = 10.0
 
 [node name="Personaje" type="CharacterBody3D" parent="." unique_id=2138693632]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 axis_lock_linear_z = true
 script = ExtResource("1_pj")
 
@@ -98,7 +104,19 @@ shape = SubResource("Capsula")
 [node name="Modelo" parent="Personaje" unique_id=590552023 instance=ExtResource("2_modelo")]
 transform = Transform3D(-2.6, 0, 0, 0, 2.6, 0, 0, 0, -2.6, 0, 0, 0)
 
+[node name="Apuntar" type="Node" parent="Personaje" unique_id=1944176471]
+script = ExtResource("3_1bvp3")
+
 [node name="Tacleador" parent="." unique_id=398855998 node_paths=PackedStringArray("objetivo") instance=ExtResource("3_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.6, 0)
 axis_lock_linear_z = true
 objetivo = NodePath("../Personaje")
+
+[node name="Caja1" type="StaticBody3D" parent="." unique_id=158947071]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.5, -4)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Caja1" unique_id=989427044]
+mesh = SubResource("BoxMesh_xrivr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Caja1" unique_id=560195045]
+shape = SubResource("BoxShape3D_xrivr")
