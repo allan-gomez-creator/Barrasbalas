@@ -43,3 +43,15 @@ func ir_a(p):
 	velocity.z = dir.z * rapidez
 	basis = Basis.looking_at(dir)
 	anim.play("walk")
+
+
+
+@export var vida = 2
+
+
+func recibir_golpe(danio):
+	vida -= danio
+	print(name, ": vida ", vida)
+	if vida <= 0:
+		print(name, " expulsado")
+		queue_free()
