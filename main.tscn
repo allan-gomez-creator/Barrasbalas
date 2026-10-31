@@ -93,7 +93,6 @@ projection = 1
 size = 10.0
 
 [node name="Personaje" type="CharacterBody3D" parent="." unique_id=2138693632]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 axis_lock_linear_z = true
 script = ExtResource("1_pj")
 
