@@ -1,8 +1,11 @@
 extends CharacterBody3D
 
-@export var speed = 5.0
-@export var tiempo_arranque = 0.2
-@export var gravedad = 20.0
+enum Estado { QUIETO, CAMINAR, AIRE }
+const VISIBILIDAD = [3.0, 5.0, 8.0]   # metros, en el orden del enum
+
+@export var speed = 4.0
+@export var tiempo_arranque = 0.1
+@export var gravedad = 30.0
 @export var altura_salto = 1.5
 @onready var anim = $Modelo/AnimationPlayer
 
@@ -11,6 +14,8 @@ var multiplicador = 1.0     # 1 = rapidez normal, 0.5 = la mitad, 0 = quieto
 var empuje = Vector3.ZERO   # velocidad extra en m/s (dash, retroceso)
 var accion = ""             # animación de la acción; "" = ninguna
 var avance = 0.0            # la parte de la velocidad que dan las teclas
+var estado = Estado.QUIETO
+var visibilidad = 0.0
 
 
 func _physics_process(delta):
@@ -26,17 +31,37 @@ func _physics_process(delta):
 
 	if lado != 0:
 		rotation.y = -PI / 2 * sign(lado)   # mira hacia +X o hacia -X
-	if accion != "":
-		anim.play(accion)
-	elif not is_on_floor():
-		anim.play("jump" if velocity.y > 0 else "fall")
-	elif absf(avance) > 0.1:
-		anim.play("walk")
-	else:
-		anim.play("idle")
 
 	move_and_slide()
+	var antes = estado
+	estado = elegir_estado()
+	visibilidad = VISIBILIDAD[estado]
+	if estado != antes:
+		print("estado ", Estado.keys()[estado], " · visibilidad ", visibilidad, " m")
+	animar()
 	_prueba()
+
+
+func elegir_estado():
+	if not is_on_floor():
+		return Estado.AIRE
+	var rapidez = absf(velocity.x)
+	if rapidez < 0.1:
+		return Estado.QUIETO
+	return Estado.CAMINAR
+
+
+func animar():
+	if accion != "":
+		anim.play(accion)
+		return
+	match estado:
+		Estado.QUIETO:
+			anim.play("idle")
+		Estado.CAMINAR:
+			anim.play("walk")
+		Estado.AIRE:
+			anim.play("jump" if velocity.y > 0 else "fall")
 # ---------------------------------------------------------------------------
 # PRUEBAS AUTOMÁTICAS. No hace falta entender esta parte: en el Inspector del
 # Personaje elijan "Prueba" (y, si la prueba usa una acción, escriban su nombre
