@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://biu6tppn8ml1q" path="res://personaje/character-male-a.glb" id="2_modelo"]
 [ext_resource type="Script" uid="uid://cheajayngkfaa" path="res://rodar.gd" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://c5wlgaqocvngx" path="res://tacleador.tscn" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://llty1vxsmol8" path="res://interactuar.gd" id="4_lquwl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="CieloMat"]
 
@@ -32,6 +33,8 @@ size = Vector3(3, 0.4, 4)
 [sub_resource type="CapsuleShape3D" id="Capsula"]
 radius = 0.35
 height = 1.75
+
+[sub_resource type="BoxMesh" id="BoxMesh_n83nh"]
 
 [node name="Main" type="Node3D" unique_id=1865053807]
 
@@ -102,7 +105,14 @@ transform = Transform3D(-2.6, 0, 0, 0, 2.6, 0, 0, 0, -2.6, 0, 0, 0)
 [node name="Rodar" type="Node" parent="Personaje" unique_id=768529291]
 script = ExtResource("3_1bvp3")
 
+[node name="Interactuar" type="Node" parent="Personaje" unique_id=1439710078]
+script = ExtResource("4_lquwl")
+
 [node name="Tacleador" parent="." unique_id=398855998 node_paths=PackedStringArray("objetivo") instance=ExtResource("3_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.6, 0)
 axis_lock_linear_z = true
 objetivo = NodePath("../Personaje")
+
+[node name="Caja1" type="MeshInstance3D" parent="." unique_id=2077083756 groups=["interactivos"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, 0)
+mesh = SubResource("BoxMesh_n83nh")
