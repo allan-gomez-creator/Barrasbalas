@@ -5,6 +5,7 @@ enum Estado { LISTA, ACTIVA, RECARGA }
 @export var duracion = 0.3
 @export var recarga = 1.2
 @onready var pj = get_parent()
+@export var rapidez = 12.0
 
 var estado = Estado.LISTA
 var tiempo = 0.0
@@ -21,13 +22,21 @@ func _physics_process(delta):
 		Estado.RECARGA:
 			if tiempo <= 0.001:
 				estado = Estado.LISTA
-
+func puede():
+	return pj.is_on_floor()  
+	
 func empezar():
 	estado = Estado.ACTIVA
 	tiempo = duracion
+	pj.empuje = -pj.basis.z * rapidez
+	pj.multiplicador = 0
+	pj.accion = "crouch"
 	print("empieza: ", tecla)
 
 func terminar():
 	estado = Estado.RECARGA
 	tiempo = recarga
+	pj.empuje = Vector3.ZERO
+	pj.multiplicador = 1
+	pj.accion = ""
 	print("termina: ", tecla)
