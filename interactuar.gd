@@ -1,26 +1,47 @@
 extends Node
 
-@export var tecla: String = "interactuar"  # nombre de la acción del Input Map
-@export var alcance: float = 1.5           # metros; lo que esté más lejos no cuenta
+@export var tecla: String = "interactuar"
+@export var alcance: float = 1.5
+@export var tiempo_necesario: float = 1.5  # segundos que hay que mantener la tecla
 @onready var pj = get_parent()
 
-func _physics_process(_delta):
-	# just_pressed: verdadero SOLO en el cuadro en que se presiona la tecla
-	if Input.is_action_just_pressed(tecla):
-		var obj = mas_cercano()
-		if obj == null:
-			print("nada a menos de ", alcance, " m")
-		else:
-			var d = snappedf(distancia_a(obj), 0.01)
-			print("interactúa con ", obj.name, " a ", d, " m")
+var progreso: float = 0.0   # va de 0 a 1
+var actual = null           # el objeto con el que se está interactuando
 
-# Igual que en el nivel 1, pero solo cuentan los que están DENTRO del alcance
+func _physics_process(delta):
+	var obj = mas_cercano()
+
+	# Si se soltó la tecla o no hay nada al alcance: todo vuelve a cero
+	if not Input.is_action_pressed(tecla) or obj == null:
+		progreso = 0.0
+		actual = null
+		return
+
+	# Si cambió de objeto, el progreso empieza de cero
+	if obj != actual:
+		actual = obj
+		progreso = 0.0
+
+	# Sube delta ÷ tiempo_necesario por cuadro: llega a 1 en tiempo_necesario s
+	var antes = progreso
+	progreso += delta / tiempo_necesario
+
+	# int(progreso * 4) vale 0, 1, 2 o 3 y cambia al cruzar cada 25 %
+	if int(progreso * 4) > int(antes * 4) and progreso < 0.999:
+		print(obj.name, ": ", int(progreso * 4) * 25, " %")
+
+	# 0.999 y no 1: sumar 1/90 noventa veces no da exacto 1
+	if progreso >= 0.999:
+		print("completado: ", obj.name)
+		# Si el objeto sabe hacer algo al completarse, se lo pedimos
+		if obj.has_method("usar"):
+			obj.usar()
+		progreso = 0.0
+
 func mas_cercano():
 	var mejor = null
 	for obj in get_tree().get_nodes_in_group("interactivos"):
 		var d = distancia_a(obj)
-		# Primero se descarta lo lejano (d <= alcance).
-		# De lo que queda, gana el más cercano.
 		if d <= alcance and (mejor == null or d < distancia_a(mejor)):
 			mejor = obj
 	return mejor
