@@ -1,27 +1,30 @@
 extends Node
 
-# El nodo padre es el Personaje (de ahí leemos su posición)
+@export var tecla: String = "interactuar"  # nombre de la acción del Input Map
+@export var alcance: float = 1.5           # metros; lo que esté más lejos no cuenta
 @onready var pj = get_parent()
 
 func _physics_process(_delta):
-	# Una de cada 30 veces (cada 0.5 s a 60 fps)
-	if Engine.get_physics_frames() % 30 == 0:
+	# just_pressed: verdadero SOLO en el cuadro en que se presiona la tecla
+	if Input.is_action_just_pressed(tecla):
 		var obj = mas_cercano()
 		if obj == null:
-			print("no hay nada en el grupo interactivos")
+			print("nada a menos de ", alcance, " m")
 		else:
 			var d = snappedf(distancia_a(obj), 0.01)
-			print("más cercano: ", obj.name, " a ", d, " m")
+			print("interactúa con ", obj.name, " a ", d, " m")
 
-# Devuelve el objeto del grupo que está más cerca (o null si no hay ninguno)
+# Igual que en el nivel 1, pero solo cuentan los que están DENTRO del alcance
 func mas_cercano():
 	var mejor = null
 	for obj in get_tree().get_nodes_in_group("interactivos"):
-		if mejor == null or distancia_a(obj) < distancia_a(mejor):
+		var d = distancia_a(obj)
+		# Primero se descarta lo lejano (d <= alcance).
+		# De lo que queda, gana el más cercano.
+		if d <= alcance and (mejor == null or d < distancia_a(mejor)):
 			mejor = obj
 	return mejor
 
-# Distancia en el suelo: usa x y z, ignora la altura
 func distancia_a(obj):
 	var a = Vector2(pj.global_position.x, pj.global_position.z)
 	var b = Vector2(obj.global_position.x, obj.global_position.z)
