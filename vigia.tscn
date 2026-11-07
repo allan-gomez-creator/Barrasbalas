@@ -10,6 +10,8 @@ height = 1.75
 [node name="Vigia" type="CharacterBody3D" unique_id=1628014569]
 axis_lock_linear_z = true
 script = ExtResource("1_2ven1")
+rapidez = 3.2
+tiempo_mirar = 1.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=881069668]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
