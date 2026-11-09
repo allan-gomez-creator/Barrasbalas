@@ -119,3 +119,5 @@ entorno = NodePath("../WorldEnvironment")
 
 [node name="CicloDia" type="Node" parent="SistemaSol" unique_id=16317005]
 script = ExtResource("4_57wwi")
+hora = 12.0
+duracion_dia = 12.0
