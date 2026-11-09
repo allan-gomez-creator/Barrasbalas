@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cmwcsst8dsddq"]
+
+[sub_resource type="Environment" id="Environment_s61sg"]
+
+[node name="ZonaA" type="Node3D" unique_id=176839135]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=600594697]
+environment = SubResource("Environment_s61sg")
