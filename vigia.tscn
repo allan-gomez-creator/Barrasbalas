@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://xqd8urcy2dqm"]
+
+[ext_resource type="Script" uid="uid://b2gnuasx5lqig" path="res://vigia.gd" id="1_2ven1"]
+[ext_resource type="PackedScene" uid="uid://52giffn4ww16" path="res://personaje/character-male-d.glb" id="1_q0nh4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xrivr"]
+radius = 0.35
+height = 1.75
+
+[node name="Vigia" type="CharacterBody3D" unique_id=1628014569]
+axis_lock_linear_z = true
+script = ExtResource("1_2ven1")
+rapidez = 3.2
+tiempo_mirar = 1.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=881069668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
+shape = SubResource("CapsuleShape3D_xrivr")
+
+[node name="Modelo" parent="." unique_id=846578742 instance=ExtResource("1_q0nh4")]
+transform = Transform3D(-2.6, 0, -2.2729921e-07, 0, 2.6, 0, 2.2729921e-07, 0, -2.6, 0, 0, 0)
