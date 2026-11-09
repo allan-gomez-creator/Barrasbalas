@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://dgth6oisckwfj"]
 
+[ext_resource type="Script" uid="uid://b5c4wx67j2hgt" path="res://luz_parpadeante.gd" id="1_pjwgy"]
+
 [sub_resource type="Environment" id="Environment_uxa2c"]
 background_mode = 1
 background_color = Color(0.078431375, 0.07058824, 0.12156863, 1)
@@ -54,3 +56,6 @@ omni_range = 10.0
 omni_attenuation = 2.0
 
 [node name="SistemaEventos" type="Node" parent="." unique_id=888496235]
+
+[node name="LuzParpadeante" type="OmniLight3D" parent="." unique_id=1438066370]
+script = ExtResource("1_pjwgy")
