@@ -33,16 +33,31 @@ size = Vector3(1, 12, 4)
 [sub_resource type="StandardMaterial3D" id="MatGrada"]
 albedo_color = Color(0.5, 0.5, 0.55, 1)
 
-[sub_resource type="BoxMesh" id="Grada1Malla"]
+[sub_resource type="StandardMaterial3D" id="MatGrada2"]
+albedo_color = Color(0.4, 0.4, 0.46, 1)
+
+[sub_resource type="BoxMesh" id="Fila1Malla"]
 material = SubResource("MatGrada")
+size = Vector3(30, 0.75, 1)
+
+[sub_resource type="BoxMesh" id="Fila2Malla"]
+material = SubResource("MatGrada2")
 size = Vector3(30, 1.5, 1)
 
-[sub_resource type="BoxMesh" id="Grada2Malla"]
+[sub_resource type="BoxMesh" id="Fila3Malla"]
 material = SubResource("MatGrada")
-size = Vector3(30, 3, 1)
+size = Vector3(30, 2.25, 1)
 
-[sub_resource type="BoxMesh" id="Grada3Malla"]
+[sub_resource type="BoxMesh" id="Fila4Malla"]
+material = SubResource("MatGrada2")
+size = Vector3(30, 3.0, 1)
+
+[sub_resource type="BoxMesh" id="Fila5Malla"]
 material = SubResource("MatGrada")
+size = Vector3(30, 3.75, 1)
+
+[sub_resource type="BoxMesh" id="Fila6Malla"]
+material = SubResource("MatGrada2")
 size = Vector3(30, 4.5, 1)
 
 [sub_resource type="StandardMaterial3D" id="MatTunel"]
@@ -108,17 +123,29 @@ shape = SubResource("BordeForma")
 
 [node name="Gradas" type="Node3D" parent="."]
 
-[node name="Grada1" type="MeshInstance3D" parent="Gradas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -2.5)
-mesh = SubResource("Grada1Malla")
+[node name="Fila1" type="MeshInstance3D" parent="Gradas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, -2.5)
+mesh = SubResource("Fila1Malla")
 
-[node name="Grada2" type="MeshInstance3D" parent="Gradas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -3.5)
-mesh = SubResource("Grada2Malla")
+[node name="Fila2" type="MeshInstance3D" parent="Gradas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -3.5)
+mesh = SubResource("Fila2Malla")
 
-[node name="Grada3" type="MeshInstance3D" parent="Gradas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, -4.5)
-mesh = SubResource("Grada3Malla")
+[node name="Fila3" type="MeshInstance3D" parent="Gradas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, -4.5)
+mesh = SubResource("Fila3Malla")
+
+[node name="Fila4" type="MeshInstance3D" parent="Gradas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -5.5)
+mesh = SubResource("Fila4Malla")
+
+[node name="Fila5" type="MeshInstance3D" parent="Gradas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.875, -6.5)
+mesh = SubResource("Fila5Malla")
+
+[node name="Fila6" type="MeshInstance3D" parent="Gradas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, -7.5)
+mesh = SubResource("Fila6Malla")
 
 [node name="BocaTunel" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1.6, -2.05)
