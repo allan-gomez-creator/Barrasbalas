@@ -1,5 +1,8 @@
 extends CharacterBody3D
 
+signal energia_cambio(valor: int)
+signal murio 
+
 enum Estado { QUIETO, CAMINAR, AIRE }
 const VISIBILIDAD = [3.0, 5.0, 8.0]   # metros, en el orden del enum
 
@@ -8,6 +11,12 @@ const VISIBILIDAD = [3.0, 5.0, 8.0]   # metros, en el orden del enum
 @export var gravedad = 30.0
 @export var altura_salto = 1.5
 @onready var anim = $Modelo/AnimationPlayer
+@export var energia_max = 5
+@export var tiempo_invulnerable = 1.0
+@export var probar_con_t = false
+var energia = 5
+var invulnerable = false
+var muerto = false
 
 # Enchufes: otros scripts (las acciones del juego) cambian estas tres variables.
 var multiplicador = 1.0     # 1 = rapidez normal, 0.5 = la mitad, 0 = quieto
@@ -41,6 +50,41 @@ func _physics_process(delta):
 	animar()
 	_prueba()
 
+func _ready():
+	energia = energia_max
+
+func recibir_danio(cantidad):
+	if invulnerable or muerto:
+		return
+	energia = max(energia - cantidad, 0)
+	energia_cambio.emit(energia)
+	print("energía ", energia, " / ", energia_max)
+	if energia == 0:
+		muerto = true
+		print("perdió")
+		murio.emit()
+		return
+	parpadear()
+
+func curar(cantidad):
+	if muerto:
+		return
+	energia = min(energia + cantidad, energia_max)
+	energia_cambio.emit(energia)
+	print("energía ", energia, " / ", energia_max)
+
+func parpadear():
+	invulnerable = true
+	var pasos = int(tiempo_invulnerable / 0.1)
+	for i in pasos:
+		$Modelo.visible = not $Modelo.visible
+		await get_tree().create_timer(0.1).timeout
+	$Modelo.visible = true
+	invulnerable = false
+
+func _unhandled_input(event):
+	if probar_con_t and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_T:
+		recibir_danio(1)
 
 func elegir_estado():
 	if not is_on_floor():
@@ -49,7 +93,6 @@ func elegir_estado():
 	if rapidez < 0.1:
 		return Estado.QUIETO
 	return Estado.CAMINAR
-
 
 func animar():
 	if accion != "":
@@ -142,7 +185,6 @@ func _cambios(n):
 		if _antes.has(nodo) and _antes[nodo] != e:
 			print("[prueba] cuadro ", n, ": ", nodo.name, ".estado cambia a ", e)
 		_antes[nodo] = e
-
 
 func _con_estado():
 	var lista = []
