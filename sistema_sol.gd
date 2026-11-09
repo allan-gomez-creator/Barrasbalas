@@ -38,3 +38,16 @@ func aplicar_hora() -> void:
 	sol.light_energy = energia_sol * f
 	sol.light_color = CicloDia.color_sol(h)
 	entorno.environment.ambient_light_energy = lerpf(ambiente_noche, ambiente_dia, f)
+
+
+# Nivel 3: Lambert a mano.
+static func lambert(normal: Vector3, hacia_luz: Vector3) -> float:
+	var n := normal.normalized()
+	var l := hacia_luz.normalized()
+	return maxf(0.0, n.dot(l))
+
+
+# Prediccion del canal rojo de una superficie horizontal (normal (0, 1, 0)).
+func prediccion_piso() -> float:
+	var hacia_luz := sol.global_transform.basis.z	# la luz viaja hacia -Z: la luz esta hacia +Z
+	return sol.light_energy * sol.light_color.r * lambert(Vector3.UP, hacia_luz)
