@@ -1,0 +1,139 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="MatCancha"]
+albedo_color = Color(0.36, 0.52, 0.36, 1)
+
+[sub_resource type="BoxMesh" id="PisoMalla"]
+material = SubResource("MatCancha")
+size = Vector3(30, 1, 4)
+
+[sub_resource type="BoxShape3D" id="PisoForma"]
+size = Vector3(30, 1, 4)
+
+[sub_resource type="StandardMaterial3D" id="PlatMat"]
+albedo_color = Color(0.85, 0.55, 0.25, 1)
+
+[sub_resource type="BoxMesh" id="PlatMalla"]
+material = SubResource("PlatMat")
+size = Vector3(3, 0.4, 4)
+
+[sub_resource type="BoxShape3D" id="PlatForma"]
+size = Vector3(3, 0.4, 4)
+
+[sub_resource type="BoxMesh" id="TribunaMalla"]
+material = SubResource("PlatMat")
+size = Vector3(9, 0.4, 4)
+
+[sub_resource type="BoxShape3D" id="TribunaForma"]
+size = Vector3(9, 0.4, 4)
+
+[sub_resource type="BoxShape3D" id="BordeForma"]
+size = Vector3(1, 12, 4)
+
+[sub_resource type="StandardMaterial3D" id="MatGrada"]
+albedo_color = Color(0.5, 0.5, 0.55, 1)
+
+[sub_resource type="BoxMesh" id="Grada1Malla"]
+material = SubResource("MatGrada")
+size = Vector3(30, 1.5, 1)
+
+[sub_resource type="BoxMesh" id="Grada2Malla"]
+material = SubResource("MatGrada")
+size = Vector3(30, 3, 1)
+
+[sub_resource type="BoxMesh" id="Grada3Malla"]
+material = SubResource("MatGrada")
+size = Vector3(30, 4.5, 1)
+
+[sub_resource type="StandardMaterial3D" id="MatTunel"]
+albedo_color = Color(0.12, 0.12, 0.15, 1)
+
+[sub_resource type="BoxMesh" id="TunelMalla"]
+material = SubResource("MatTunel")
+size = Vector3(3, 3.2, 0.2)
+
+[node name="Escenario" type="Node3D"]
+
+[node name="Suelo" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Suelo"]
+mesh = SubResource("PisoMalla")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Suelo"]
+shape = SubResource("PisoForma")
+
+[node name="Plataformas" type="Node3D" parent="."]
+
+[node name="Plataforma1" type="StaticBody3D" parent="Plataformas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0.4, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/Plataforma1"]
+mesh = SubResource("TribunaMalla")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/Plataforma1"]
+shape = SubResource("TribunaForma")
+
+[node name="Plataforma2" type="StaticBody3D" parent="Plataformas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0.4, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/Plataforma2"]
+mesh = SubResource("TribunaMalla")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/Plataforma2"]
+shape = SubResource("TribunaForma")
+
+[node name="Plataforma3" type="StaticBody3D" parent="Plataformas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.9, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/Plataforma3"]
+mesh = SubResource("PlatMalla")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/Plataforma3"]
+shape = SubResource("PlatForma")
+
+[node name="Bordes" type="Node3D" parent="."]
+
+[node name="BordeIzq" type="StaticBody3D" parent="Bordes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, 6, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bordes/BordeIzq"]
+shape = SubResource("BordeForma")
+
+[node name="BordeDer" type="StaticBody3D" parent="Bordes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 6, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bordes/BordeDer"]
+shape = SubResource("BordeForma")
+
+[node name="Gradas" type="Node3D" parent="."]
+
+[node name="Grada1" type="MeshInstance3D" parent="Gradas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -2.5)
+mesh = SubResource("Grada1Malla")
+
+[node name="Grada2" type="MeshInstance3D" parent="Gradas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -3.5)
+mesh = SubResource("Grada2Malla")
+
+[node name="Grada3" type="MeshInstance3D" parent="Gradas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, -4.5)
+mesh = SubResource("Grada3Malla")
+
+[node name="BocaTunel" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1.6, -2.05)
+mesh = SubResource("TunelMalla")
+
+[node name="Apariciones" type="Node3D" parent="."]
+
+[node name="AparicionIzq" type="Marker3D" parent="Apariciones" groups=["apariciones"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.6, 0)
+
+[node name="AparicionDer" type="Marker3D" parent="Apariciones" groups=["apariciones"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.6, 0)
+
+[node name="TribunaIzq" type="Marker3D" parent="Apariciones" groups=["apariciones"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0.6, 0)
+
+[node name="TribunaDer" type="Marker3D" parent="Apariciones" groups=["apariciones"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.6, 0)

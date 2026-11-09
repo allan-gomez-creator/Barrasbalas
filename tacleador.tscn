@@ -8,6 +8,7 @@ radius = 0.35
 height = 1.75
 
 [node name="Tacleador" type="CharacterBody3D" unique_id=398855998]
+axis_lock_linear_z = true
 script = ExtResource("1_tpvfa")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1087905645]

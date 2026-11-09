@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://c2anmpos86lhu" path="res://diana.gd" id="5_lquwl"]
 [ext_resource type="Script" uid="uid://cheajayngkfaa" path="res://rodar.gd" id="6_rodar"]
 [ext_resource type="Script" uid="uid://llty1vxsmol8" path="res://interactuar.gd" id="7_inter"]
+[ext_resource type="PackedScene" path="res://escenario.tscn" id="8_5vw27"]
 
 [sub_resource type="ProceduralSkyMaterial" id="CieloMat"]
 
@@ -16,21 +17,6 @@ sky_material = SubResource("CieloMat")
 [sub_resource type="Environment" id="Entorno"]
 background_mode = 2
 sky = SubResource("Cielo")
-
-[sub_resource type="BoxMesh" id="PisoMalla"]
-size = Vector3(30, 1, 4)
-
-[sub_resource type="BoxShape3D" id="PisoForma"]
-size = Vector3(30, 1, 4)
-
-[sub_resource type="BoxMesh" id="PlatMalla"]
-size = Vector3(3, 0.4, 4)
-
-[sub_resource type="StandardMaterial3D" id="PlatMat"]
-albedo_color = Color(0.85, 0.55, 0.25, 1)
-
-[sub_resource type="BoxShape3D" id="PlatForma"]
-size = Vector3(3, 0.4, 4)
 
 [sub_resource type="CapsuleShape3D" id="Capsula"]
 radius = 0.35
@@ -51,53 +37,14 @@ environment = SubResource("Entorno")
 transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 6, 0)
 shadow_enabled = true
 
-[node name="Suelo" type="StaticBody3D" parent="." unique_id=1634734222]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Suelo" unique_id=2080490387]
-mesh = SubResource("PisoMalla")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Suelo" unique_id=1182913117]
-shape = SubResource("PisoForma")
-
 [node name="Plataformas" type="Node3D" parent="." unique_id=775087165]
-
-[node name="Plataforma1" type="StaticBody3D" parent="Plataformas" unique_id=1757900769]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.4, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/Plataforma1" unique_id=1267557076]
-mesh = SubResource("PlatMalla")
-surface_material_override/0 = SubResource("PlatMat")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/Plataforma1" unique_id=358189887]
-shape = SubResource("PlatForma")
-
-[node name="Plataforma2" type="StaticBody3D" parent="Plataformas" unique_id=1420343149]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0.4, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/Plataforma2" unique_id=552887383]
-mesh = SubResource("PlatMalla")
-surface_material_override/0 = SubResource("PlatMat")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/Plataforma2" unique_id=1631556371]
-shape = SubResource("PlatForma")
-
-[node name="Plataforma3" type="StaticBody3D" parent="Plataformas" unique_id=1315718501]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.9, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/Plataforma3" unique_id=367902449]
-mesh = SubResource("PlatMalla")
-surface_material_override/0 = SubResource("PlatMat")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/Plataforma3" unique_id=303940403]
-shape = SubResource("PlatForma")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=2007210899]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 12)
 projection = 1
 size = 10.0
 
-[node name="Personaje" type="CharacterBody3D" parent="." unique_id=2138693632]
+[node name="Personaje" type="CharacterBody3D" parent="." unique_id=2138693632 groups=["arbitro", "jugador"]]
 axis_lock_linear_z = true
 script = ExtResource("1_pj")
 
@@ -122,7 +69,6 @@ script = ExtResource("7_inter")
 
 [node name="Tacleador" parent="." unique_id=398855998 node_paths=PackedStringArray("objetivo") instance=ExtResource("3_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.6, 0)
-axis_lock_linear_z = true
 objetivo = NodePath("../Personaje")
 
 [node name="Caja1" type="StaticBody3D" parent="." unique_id=158947071]
@@ -138,3 +84,5 @@ shape = SubResource("BoxShape3D_xrivr")
 [node name="CajaInteractiva" type="MeshInstance3D" parent="." unique_id=2077083756 groups=["interactivos"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, 0)
 mesh = SubResource("BoxMesh_n83nh")
+
+[node name="Escenario" parent="." unique_id=834304079 instance=ExtResource("8_5vw27")]
