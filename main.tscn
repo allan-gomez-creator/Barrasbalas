@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://dgkhs3olsfacw" path="res://apuntar.gd" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://c5wlgaqocvngx" path="res://tacleador.tscn" id="3_h2yge"]
 [ext_resource type="Script" uid="uid://c2anmpos86lhu" path="res://diana.gd" id="5_lquwl"]
+[ext_resource type="Script" uid="uid://cheajayngkfaa" path="res://rodar.gd" id="6_rodar"]
+[ext_resource type="Script" uid="uid://llty1vxsmol8" path="res://interactuar.gd" id="7_inter"]
 
 [sub_resource type="ProceduralSkyMaterial" id="CieloMat"]
 
@@ -37,6 +39,8 @@ height = 1.75
 [sub_resource type="BoxMesh" id="BoxMesh_xrivr"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xrivr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_n83nh"]
 
 [node name="Main" type="Node3D" unique_id=1865053807]
 
@@ -110,6 +114,12 @@ alcance = 9.0
 danio = 1
 cadencia = 0.167
 
+[node name="Rodar" type="Node" parent="Personaje" unique_id=768529291]
+script = ExtResource("6_rodar")
+
+[node name="Interactuar" type="Node" parent="Personaje" unique_id=1439710078]
+script = ExtResource("7_inter")
+
 [node name="Tacleador" parent="." unique_id=398855998 node_paths=PackedStringArray("objetivo") instance=ExtResource("3_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.6, 0)
 axis_lock_linear_z = true
@@ -124,3 +134,7 @@ mesh = SubResource("BoxMesh_xrivr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Caja1" unique_id=560195045]
 shape = SubResource("BoxShape3D_xrivr")
+
+[node name="CajaInteractiva" type="MeshInstance3D" parent="." unique_id=2077083756 groups=["interactivos"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, 0)
+mesh = SubResource("BoxMesh_n83nh")
