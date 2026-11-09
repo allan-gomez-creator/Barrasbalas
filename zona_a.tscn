@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://biu6tppn8ml1q" path="res://personaje/character-male-a.glb" id="2_fntjl"]
 [ext_resource type="Script" uid="uid://c1xtfml70clwf" path="res://sistema_sol.gd" id="3_e2n66"]
 [ext_resource type="Script" uid="uid://c5y3m4ljpv2bu" path="res://ciclo_dia.gd" id="4_57wwi"]
-[ext_resource type="Script" uid="uid://cya1u236m0h7n" path="res://fotometro.gd" id="5_57wwi"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qk3cq"]
 
@@ -120,11 +119,3 @@ entorno = NodePath("../WorldEnvironment")
 
 [node name="CicloDia" type="Node" parent="SistemaSol" unique_id=16317005]
 script = ExtResource("4_57wwi")
-hora = 12.0
-duracion_dia = 12.0
-
-[node name="Fotometro" type="Node" parent="." unique_id=269863419 node_paths=PackedStringArray("sistema", "camara", "superficie")]
-script = ExtResource("5_57wwi")
-sistema = NodePath("../SistemaSol")
-camara = NodePath("../Camera3D")
-superficie = NodePath("../Suelo/MeshInstance3D")
