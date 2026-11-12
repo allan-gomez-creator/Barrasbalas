@@ -1,5 +1,9 @@
 [gd_scene format=3 uid="uid://dgth6oisckwfj"]
 
+[ext_resource type="Script" uid="uid://def0l0a63r8jr" path="res://area_3d.gd" id="1_7ursy"]
+[ext_resource type="Script" uid="uid://b5c4wx67j2hgt" path="res://luz_parpadeante.gd" id="1_pjwgy"]
+[ext_resource type="Script" uid="uid://cj4et5tkmpitk" path="res://sistema_eventos.gd" id="2_dbxaw"]
+
 [sub_resource type="Environment" id="Environment_uxa2c"]
 background_mode = 1
 background_color = Color(0.078431375, 0.07058824, 0.12156863, 1)
@@ -41,6 +45,9 @@ collision_mask = 8
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Disparador" unique_id=728412899]
 shape = SubResource("BoxShape3D_uxa2c")
 
+[node name="Area3D" type="Area3D" parent="Disparador" unique_id=3613477]
+script = ExtResource("1_7ursy")
+
 [node name="LuzEvento" type="OmniLight3D" parent="." unique_id=463458518]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2)
 light_color = Color(0.9098039, 0.21568628, 0.17254902, 1)
@@ -53,4 +60,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 3, -4)
 omni_range = 10.0
 omni_attenuation = 2.0
 
-[node name="SistemaEventos" type="Node" parent="." unique_id=888496235]
+[node name="SistemaEventos" type="Node" parent="." unique_id=888496235 node_paths=PackedStringArray("luz_evento")]
+script = ExtResource("2_dbxaw")
+luz_evento = NodePath("../LuzEvento")
+
+[node name="LuzParpadeante" type="OmniLight3D" parent="." unique_id=1438066370]
+script = ExtResource("1_pjwgy")
