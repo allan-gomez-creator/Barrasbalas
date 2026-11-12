@@ -1,7 +1,8 @@
-[gd_scene format=3 uid="uid://d3qkd36oyvc72"]
+[gd_scene format=3 uid="uid://b0hlestmigfxa"]
 
 [ext_resource type="Script" uid="uid://lhdh0du1xfog" path="res://prueba_oleadas.gd" id="1_prueba"]
-[ext_resource type="PackedScene" uid="uid://c1o4gfu5thqfu" path="res://oleadas.tscn" id="2_oleadas"]
+[ext_resource type="PackedScene" path="res://oleadas.tscn" id="2_oleadas"]
+[ext_resource type="Script" uid="uid://b8jhyvqo6j380" path="res://prueba_arbitro.gd" id="3_arbitro"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_piso"]
 size = Vector3(30, 1, 6)
@@ -17,41 +18,42 @@ height = 1.75
 radius = 0.35
 height = 1.75
 
-[node name="PruebaOleadas" type="Node3D" unique_id=2117914575]
+[node name="PruebaOleadas" type="Node3D" unique_id=611312249]
 script = ExtResource("1_prueba")
 
-[node name="Piso" type="StaticBody3D" parent="." unique_id=1025918355]
+[node name="Piso" type="StaticBody3D" parent="." unique_id=2133908273]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Piso" unique_id=149153782]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Piso" unique_id=811164747]
 shape = SubResource("BoxShape3D_piso")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Piso" unique_id=517453963]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Piso" unique_id=1251699723]
 mesh = SubResource("BoxMesh_piso")
 
-[node name="ArbitroPrueba" type="CharacterBody3D" parent="." unique_id=89371664 groups=["arbitro"]]
+[node name="ArbitroPrueba" type="CharacterBody3D" parent="." unique_id=1982406659 groups=["arbitro"]]
 axis_lock_linear_z = true
+script = ExtResource("3_arbitro")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ArbitroPrueba" unique_id=178484351]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ArbitroPrueba" unique_id=1090972561]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
 shape = SubResource("CapsuleShape3D_arbitro")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ArbitroPrueba" unique_id=1448547777]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ArbitroPrueba" unique_id=775367249]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
 mesh = SubResource("CapsuleMesh_arbitro")
 
-[node name="Aparicion1" type="Marker3D" parent="." unique_id=1824007997 groups=["apariciones"]]
+[node name="Aparicion1" type="Marker3D" parent="." unique_id=1239930726 groups=["apariciones"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.2, 0)
 
-[node name="Aparicion2" type="Marker3D" parent="." unique_id=1114647122 groups=["apariciones"]]
+[node name="Aparicion2" type="Marker3D" parent="." unique_id=74181930 groups=["apariciones"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.2, 0)
 
-[node name="Oleadas" parent="." unique_id=1402243035 instance=ExtResource("2_oleadas")]
+[node name="Oleadas" parent="." unique_id=1664909773 instance=ExtResource("2_oleadas")]
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1198384654]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1885582165]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 12)
 projection = 1
 size = 12.0
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1575461219]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2102133237]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 6, 0)
