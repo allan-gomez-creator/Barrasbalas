@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c1xtfml70clwf" path="res://sistema_sol.gd" id="3_k76gx"]
 [ext_resource type="PackedScene" uid="uid://cksl1ukcmch7p" path="res://arbitro.tscn" id="3_pi376"]
+[ext_resource type="PackedScene" uid="uid://cjapsr6p0y63n" path="res://hud.tscn" id="4_4hjmf"]
 [ext_resource type="Script" uid="uid://c5y3m4ljpv2bu" path="res://ciclo_dia.gd" id="4_hql4h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qk3cq"]
@@ -105,3 +106,6 @@ entorno = NodePath("../WorldEnvironment")
 script = ExtResource("4_hql4h")
 
 [node name="Arbitro" parent="." unique_id=613690728 instance=ExtResource("3_pi376")]
+probar_con_t = true
+
+[node name="HUD" parent="." unique_id=337991057 instance=ExtResource("4_4hjmf")]
