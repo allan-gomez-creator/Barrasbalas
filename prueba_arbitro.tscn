@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://dsxg2p1f6vykg"]
+
+[ext_resource type="Script" uid="uid://c1xtfml70clwf" path="res://sistema_sol.gd" id="3_k76gx"]
+[ext_resource type="PackedScene" uid="uid://cksl1ukcmch7p" path="res://arbitro.tscn" id="3_pi376"]
+[ext_resource type="Script" uid="uid://c5y3m4ljpv2bu" path="res://ciclo_dia.gd" id="4_hql4h"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qk3cq"]
+
+[sub_resource type="Sky" id="Sky_xtfby"]
+sky_material = SubResource("ProceduralSkyMaterial_qk3cq")
+
+[sub_resource type="Environment" id="Environment_s61sg"]
+background_mode = 2
+sky = SubResource("Sky_xtfby")
+ambient_light_source = 3
+tonemap_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xtfby"]
+albedo_color = Color(0.32156864, 0.54901963, 0.3019608, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_s61sg"]
+material = SubResource("StandardMaterial3D_xtfby")
+size = Vector3(30, 1, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s61sg"]
+size = Vector3(30, 1, 8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qk3cq"]
+albedo_color = Color(0.6, 0.6, 0.6, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xtfby"]
+material = SubResource("StandardMaterial3D_qk3cq")
+size = Vector3(30, 3, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xtfby"]
+size = Vector3(30, 3, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bd86g"]
+albedo_color = Color(0.34901962, 0.34901962, 0.38039216, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qk3cq"]
+material = SubResource("StandardMaterial3D_bd86g")
+size = Vector3(4, 3.5, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qk3cq"]
+size = Vector3(4, 3.5, 4)
+
+[node name="ZonaA" type="Node3D" unique_id=176839135]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=600594697]
+environment = SubResource("Environment_s61sg")
+
+[node name="Sol" type="DirectionalLight3D" parent="." unique_id=43137310]
+shadow_enabled = true
+
+[node name="Suelo" type="StaticBody3D" parent="." unique_id=1784658065]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Suelo" unique_id=1383611861]
+mesh = SubResource("BoxMesh_s61sg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Suelo" unique_id=2007606364]
+shape = SubResource("BoxShape3D_s61sg")
+
+[node name="Tribuna" type="Node3D" parent="." unique_id=1171328589]
+
+[node name="Grada1" type="StaticBody3D" parent="Tribuna" unique_id=1291230341]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tribuna/Grada1" unique_id=95278561]
+mesh = SubResource("BoxMesh_xtfby")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tribuna/Grada1" unique_id=891647575]
+shape = SubResource("BoxShape3D_xtfby")
+
+[node name="Grada2" type="StaticBody3D" parent="Tribuna" unique_id=1940428977]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -7)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tribuna/Grada2" unique_id=2080440002]
+mesh = SubResource("BoxMesh_xtfby")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tribuna/Grada2" unique_id=622049867]
+shape = SubResource("BoxShape3D_xtfby")
+
+[node name="Tunel" type="StaticBody3D" parent="." unique_id=1849509481]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 1.75, -1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tunel" unique_id=666193259]
+mesh = SubResource("BoxMesh_qk3cq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tunel" unique_id=292227052]
+shape = SubResource("BoxShape3D_qk3cq")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=669938490]
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 6.3, 12)
+projection = 1
+size = 10.0
+
+[node name="SistemaSol" type="Node" parent="." unique_id=789675702 node_paths=PackedStringArray("sol", "entorno")]
+script = ExtResource("3_k76gx")
+sol = NodePath("../Sol")
+entorno = NodePath("../WorldEnvironment")
+
+[node name="CicloDia" type="Node" parent="SistemaSol" unique_id=16317005]
+script = ExtResource("4_hql4h")
+
+[node name="Arbitro" parent="." unique_id=613690728 instance=ExtResource("3_pi376")]
