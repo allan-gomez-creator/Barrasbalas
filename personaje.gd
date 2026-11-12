@@ -17,6 +17,7 @@ const VISIBILIDAD = [3.0, 5.0, 8.0]   # metros, en el orden del enum
 var energia = 5
 var invulnerable = false
 var muerto = false
+var esquivando = false
 
 # Enchufes: otros scripts (las acciones del juego) cambian estas tres variables.
 var multiplicador = 1.0     # 1 = rapidez normal, 0.5 = la mitad, 0 = quieto
@@ -54,7 +55,7 @@ func _ready():
 	energia = energia_max
 
 func recibir_danio(cantidad):
-	if invulnerable or muerto:
+	if invulnerable or esquivando or muerto:
 		return
 	energia = max(energia - cantidad, 0)
 	energia_cambio.emit(energia)
@@ -81,6 +82,10 @@ func parpadear():
 		await get_tree().create_timer(0.1).timeout
 	$Modelo.visible = true
 	invulnerable = false
+
+func recargar_aerosol():
+	if has_node("Aerosol"):
+		$Aerosol.recargar()
 
 func _unhandled_input(event):
 	if probar_con_t and event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_T:
