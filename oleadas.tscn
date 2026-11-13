@@ -3,8 +3,10 @@
 [ext_resource type="Script" path="res://sistema_oleadas.gd" id="1_oleadas"]
 [ext_resource type="PackedScene" path="res://tacleador.tscn" id="2_tacleador"]
 [ext_resource type="PackedScene" path="res://agua.tscn" id="3_agua"]
+[ext_resource type="PackedScene" path="res://victoria.tscn" id="4_victoria"]
 
 [node name="Oleadas" type="Node"]
 script = ExtResource("1_oleadas")
 escena_enemigo = ExtResource("2_tacleador")
 escena_agua = ExtResource("3_agua")
+escena_victoria = ExtResource("4_victoria")
