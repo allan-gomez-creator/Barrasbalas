@@ -11,6 +11,8 @@ enum Estado { PATRULLA, PERSEGUIR, AVISO, LANZAR, CIEGO }
 @export var puntos: Array[Vector3] = [
 	Vector3(5.5, 0, 0), Vector3(2.5, 0, 0)]
 @export var vida = 2
+# Si choca contra una tribuna mientras persigue, salta para subirse.
+@export var fuerza_salto = 5.0
 
 @export_group("Tacleo")
 @export var radio_tacleo = 1.5       # a esta distancia se prepara para taclear
@@ -75,6 +77,7 @@ func _physics_process(delta):
 				cambiar_a(Estado.AVISO)
 			else:
 				ir_a(objetivo.global_position)
+				saltar_si_choca()
 		Estado.AVISO:
 			# Quieto y agachado: es el tiempo que tiene el árbitro para reaccionar.
 			frenar()
@@ -170,6 +173,21 @@ func ir_a(p):
 	velocity.z = dir.z * rapidez
 	basis = Basis.looking_at(dir)
 	anim.play("walk")
+
+
+# Revisa contra qué chocó en el último move_and_slide(). Si chocó de frente
+# contra algo quieto (un StaticBody3D, como el borde de una tribuna) y está en
+# el piso, salta para subirse. Si choca contra el árbitro u otro barrista
+# (que no son StaticBody3D), no salta: así no brincan cuando se amontonan.
+func saltar_si_choca():
+	if not is_on_floor():
+		return
+	for i in get_slide_collision_count():
+		var choque = get_slide_collision(i)
+		if choque.get_collider() is StaticBody3D and absf(choque.get_normal().y) < 0.3:
+			velocity.y = fuerza_salto
+			anim.play("jump")
+			return
 
 
 func frenar():

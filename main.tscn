@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://b5c4wx67j2hgt" path="res://luz_parpadeante.gd" id="12_parpadeo"]
 [ext_resource type="Script" uid="uid://bf5xxpga42li" path="res://sistema_eventos.gd" id="13_eventos"]
 [ext_resource type="Script" uid="uid://bx8k5fve83sos" path="res://luz_jugador.gd" id="14_luzjug"]
+[ext_resource type="AudioStream" uid="uid://dsf752dxpm3dc" path="res://cantico.mp3" id="14_w48qg"]
 [ext_resource type="Script" uid="uid://cheajayngkfaa" path="res://rodar.gd" id="15_rodar"]
 [ext_resource type="Script" uid="uid://dd86cprxev7uy" path="res://ruido.gd" id="16_ruido"]
 
@@ -79,6 +80,7 @@ luz_evento = NodePath("../LuzEvento")
 [node name="Apuntar" type="Node" parent="Arbitro" unique_id=1811749069]
 script = ExtResource("3_1bvp3")
 alcance = 9.0
+mantener = false
 danio = 1
 cadencia = 0.167
 
@@ -105,6 +107,11 @@ mesh = SubResource("CajaMalla")
 [node name="Oleadas" parent="." unique_id=813242596 instance=ExtResource("5_7mycd")]
 
 [node name="HUD" parent="." unique_id=640245745 instance=ExtResource("9_hud")]
+
+[node name="Cantico" type="AudioStreamPlayer3D" parent="." unique_id=2101475597]
+stream = ExtResource("14_w48qg")
+volume_db = -10.0
+autoplay = true
 
 [connection signal="cambio_noche" from="SistemaSol" to="Reflector" method="set_visible"]
 [connection signal="cambio_noche" from="SistemaSol" to="Arbitro/LuzJugador" method="set_visible"]

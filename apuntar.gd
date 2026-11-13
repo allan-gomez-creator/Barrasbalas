@@ -2,7 +2,10 @@ extends Node
 
 @export var tecla = "disparar"
 @export var alcance = 20.0
-@export_enum("Personaje", "Centro de la cámara", "Mouse") var desde = 0
+@export_enum("Personaje", "Centro de la cámara", "Mouse", "Hacia el mouse (2.5D)") var desde = 3
+# true = se puede dejar presionado (sale una tarjeta cada "cadencia" segundos).
+# false = hay que hacer clic por cada tarjeta.
+@export var mantener = true
 @export var danio = 25
 @export var cadencia = 0.25
 @onready var pj = get_parent()
@@ -14,7 +17,12 @@ var hacia = Vector3.ZERO	# hasta dónde llega el rayo si no le da a nada
 
 func _physics_process(delta):
 	espera -= delta
-	if Input.is_action_pressed(tecla) and espera <= 0.001:
+	# Mientras tenga el clic presionado, el árbitro mira hacia el mouse en cada
+	# cuadro (aunque camine hacia el otro lado), para que no titile.
+	if desde == 3 and Input.is_action_pressed(tecla):
+		mirar_al_mouse()
+	var dispara = Input.is_action_pressed(tecla) if mantener else Input.is_action_just_pressed(tecla)
+	if dispara and espera <= 0.001:
 		espera = cadencia
 		var golpe = lanzar_rayo()
 		mostrar_tarjeta(origen, hacia if golpe.is_empty() else golpe.position)
@@ -31,6 +39,9 @@ func lanzar_rayo():
 	if desde == 0:	# desde el pecho, hacia donde mira el personaje
 		origen = pj.global_position + Vector3(0, 0.8, 0)
 		hacia = origen - pj.global_basis.z * alcance
+	elif desde == 3:	# desde el pecho, hacia el puntero del mouse (en el plano del juego)
+		origen = pj.global_position + Vector3(0, 0.8, 0)
+		hacia = origen + direccion_al_mouse() * alcance
 	else:	# desde la cámara, por un punto de la pantalla
 		var cam = get_viewport().get_camera_3d()
 		var punto = get_viewport().get_visible_rect().size / 2
@@ -41,6 +52,31 @@ func lanzar_rayo():
 	var consulta = PhysicsRayQueryParameters3D.create(origen, hacia)
 	consulta.exclude = [pj.get_rid()]
 	return pj.get_world_3d().direct_space_state.intersect_ray(consulta)
+
+
+# El mouse está en la pantalla (2D). Se lanza un rayo desde la cámara por ese
+# punto y se mira dónde corta el plano del juego (z = 0): ese es el punto al que
+# apunta el jugador. La dirección va del pecho del árbitro hasta ese punto.
+func direccion_al_mouse():
+	var cam = get_viewport().get_camera_3d()
+	var mouse = get_viewport().get_mouse_position()
+	var plano = Plane(Vector3(0, 0, 1), 0.0)
+	var punto = plano.intersects_ray(cam.project_ray_origin(mouse), cam.project_ray_normal(mouse))
+	if punto == null:
+		return -pj.global_basis.z	# si algo falla, dispara hacia donde mira
+	var dir = punto - origen
+	dir.z = 0.0
+	if dir.length() < 0.05:
+		return -pj.global_basis.z
+	return dir.normalized()
+
+
+# El árbitro se voltea hacia el lado donde está el mouse.
+func mirar_al_mouse():
+	origen = pj.global_position + Vector3(0, 0.8, 0)
+	var dir = direccion_al_mouse()
+	if absf(dir.x) > 0.01:
+		pj.rotation.y = -PI / 2 * signf(dir.x)
 
 
 # La tarjeta que se ve: un rectángulo amarillo que vuela del pecho del árbitro
