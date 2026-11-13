@@ -26,9 +26,17 @@ var punto = 0
 var reloj = 0.0
 var lado = 1.0   # hacia dónde se lanza: 1 = derecha, -1 = izquierda
 
+# Violeta = peligro (la paleta del juego): el tacleador se pinta de violeta
+# y muestra un "!" mientras avisa y mientras se lanza.
+const VIOLETA = Color(0.62, 0.2, 0.95)
+var mallas = []
+var tinte: StandardMaterial3D
+var alerta: Label3D
+
 
 func _ready():
 	add_to_group("barristas")
+	preparar_aviso()
 	# Si nadie le dijo a quién perseguir (lo creó una oleada), busca al árbitro.
 	if objetivo == null:
 		objetivo = get_tree().get_first_node_in_group("arbitro")
@@ -93,6 +101,7 @@ func _physics_process(delta):
 
 func cambiar_a(nuevo):
 	estado = nuevo
+	marcar_peligro(estado == Estado.AVISO or estado == Estado.LANZAR)
 	match estado:
 		Estado.AVISO:
 			reloj = tiempo_aviso
@@ -102,6 +111,31 @@ func cambiar_a(nuevo):
 			# Se lanza hacia donde está el árbitro EN ESTE MOMENTO.
 			lado = 1.0 if objetivo.global_position.x >= global_position.x else -1.0
 			basis = Basis.looking_at(Vector3(lado, 0, 0))
+
+
+func preparar_aviso():
+	tinte = StandardMaterial3D.new()
+	tinte.albedo_color = Color(VIOLETA, 0.55)
+	tinte.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	tinte.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mallas = $Modelo.find_children("*", "MeshInstance3D", true, false)
+	alerta = Label3D.new()
+	alerta.text = "!"
+	alerta.font_size = 96
+	alerta.outline_size = 16
+	alerta.modulate = VIOLETA
+	alerta.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	alerta.no_depth_test = true
+	alerta.position = Vector3(0, 2.3, 0)
+	add_child(alerta)
+	marcar_peligro(false)
+
+
+func marcar_peligro(si):
+	for m in mallas:
+		m.material_overlay = tinte if si else null
+	if alerta:
+		alerta.visible = si
 
 
 # El árbitro no recibe daño si está esquivando o parpadeando:
