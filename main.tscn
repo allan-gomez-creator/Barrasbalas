@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cksl1ukcmch7p" path="res://arbitro.tscn" id="2_lquwl"]
 [ext_resource type="Script" uid="uid://dgkhs3olsfacw" path="res://apuntar.gd" id="3_1bvp3"]
 [ext_resource type="PackedScene" path="res://oleadas.tscn" id="5_7mycd"]
+[ext_resource type="PackedScene" uid="uid://cjapsr6p0y63n" path="res://hud.tscn" id="6_7mycd"]
 [ext_resource type="Script" uid="uid://llty1vxsmol8" path="res://interactuar.gd" id="7_inter"]
 [ext_resource type="PackedScene" path="res://escenario.tscn" id="8_5vw27"]
 
@@ -43,3 +44,5 @@ cadencia = 0.167
 script = ExtResource("7_inter")
 
 [node name="Oleadas" parent="." unique_id=813242596 instance=ExtResource("5_7mycd")]
+
+[node name="HUD" parent="." unique_id=337991057 instance=ExtResource("6_7mycd")]
