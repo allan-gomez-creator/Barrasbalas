@@ -2,7 +2,7 @@ extends CharacterBody3D
 
 signal energia_cambio(valor: int)
 signal murio 
-
+signal evento(posicion: Vector3)
 enum Estado { QUIETO, CAMINAR, AIRE }
 const VISIBILIDAD = [3.0, 5.0, 8.0]   # metros, en el orden del enum
 
@@ -53,12 +53,14 @@ func _physics_process(delta):
 
 func _ready():
 	energia = energia_max
+	add_to_group("disparadores")
 
 func recibir_danio(cantidad):
 	if invulnerable or esquivando or muerto:
 		return
 	energia = max(energia - cantidad, 0)
 	energia_cambio.emit(energia)
+	evento.emit(global_position)
 	print("energía ", energia, " / ", energia_max)
 	if energia == 0:
 		muerto = true
