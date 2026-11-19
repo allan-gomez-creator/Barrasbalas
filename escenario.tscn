@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" path="res://personaje/character-female-e.glb" id="3_fe"]
 [ext_resource type="Script" path="res://barrera.gd" id="4_barrera"]
 [ext_resource type="Script" path="res://apariciones_moviles.gd" id="5_apar"]
+[ext_resource type="Script" path="res://meta.gd" id="6_meta"]
 
 [sub_resource type="StandardMaterial3D" id="MatCancha"]
 albedo_color = Color(0.3, 0.48, 0.32, 1)
@@ -156,6 +157,9 @@ size = Vector3(0.8, 2.6, 4)
 
 [sub_resource type="BoxShape3D" id="PoliciaForma"]
 size = Vector3(0.4, 8, 4)
+
+[sub_resource type="BoxShape3D" id="MetaForma"]
+size = Vector3(2.4, 3, 4)
 
 [node name="Escenario" type="Node3D"]
 
@@ -324,6 +328,35 @@ font_size = 40
 outline_size = 10
 modulate = Color(1, 1, 1, 1)
 
+[node name="BarreraTunel" type="StaticBody3D" parent="Barreras"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.6, 4, 0)
+script = ExtResource("4_barrera")
+abre_tras_oleada = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barreras/BarreraTunel"]
+shape = SubResource("PoliciaForma")
+
+[node name="Valla" type="MeshInstance3D" parent="Barreras/BarreraTunel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.7, 0)
+mesh = SubResource("PoliciaMalla")
+
+[node name="Aviso" type="Label3D" parent="Barreras/BarreraTunel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0, 2.1)
+pixel_size = 0.01
+text = "POLICÍA"
+font_size = 40
+outline_size = 10
+modulate = Color(0.85, 0.9, 1, 1)
+
+[node name="Letrero" type="Label3D" parent="Barreras/BarreraTunel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2.1)
+pixel_size = 0.01
+billboard = 1
+text = "¡Se abrió el túnel! ¡A camerinos!"
+font_size = 40
+outline_size = 10
+modulate = Color(1, 1, 1, 1)
+
 [node name="Bordes" type="Node3D" parent="."]
 
 [node name="BordeIzq" type="StaticBody3D" parent="Bordes"]
@@ -393,6 +426,24 @@ text = "CAMERINOS"
 font_size = 40
 outline_size = 8
 modulate = Color(0.95, 0.95, 0.9, 1)
+
+[node name="Meta" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.5, 1.5, 0)
+script = ExtResource("6_meta")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Meta"]
+shape = SubResource("MetaForma")
+
+[node name="Flecha" type="Label3D" parent="Meta"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
+visible = false
+pixel_size = 0.01
+billboard = 1
+no_depth_test = true
+text = "¡ENTRA A CAMERINOS!"
+font_size = 48
+outline_size = 12
+modulate = Color(1, 0.85, 0.2, 1)
 
 [node name="Marcador" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.2, -7.9)

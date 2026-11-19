@@ -15,6 +15,8 @@
 [ext_resource type="Script" uid="uid://cheajayngkfaa" path="res://rodar.gd" id="15_rodar"]
 [ext_resource type="Script" uid="uid://dd86cprxev7uy" path="res://ruido.gd" id="16_ruido"]
 [ext_resource type="Script" uid="uid://c4ioqvup7i1hs" path="res://camara_sigue.gd" id="17_cam"]
+[ext_resource type="Script" uid="uid://cfy6co3th83u6" path="res://puntaje.gd" id="18_puntaje"]
+[ext_resource type="PackedScene" path="res://sonidos.tscn" id="19_sonidos"]
 
 [sub_resource type="ProceduralSkyMaterial" id="CieloMat"]
 
@@ -109,6 +111,11 @@ mesh = SubResource("CajaMalla")
 [node name="Oleadas" parent="." unique_id=813242596 instance=ExtResource("5_7mycd")]
 
 [node name="HUD" parent="." unique_id=640245745 instance=ExtResource("9_hud")]
+
+[node name="Puntaje" type="Node" parent="." unique_id=1900567147]
+script = ExtResource("18_puntaje")
+
+[node name="Sonidos" parent="." unique_id=911027637 instance=ExtResource("19_sonidos")]
 
 [node name="Cantico" type="AudioStreamPlayer" parent="." unique_id=2101475597]
 stream = ExtResource("14_w48qg")

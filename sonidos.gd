@@ -40,8 +40,8 @@ func conectar():
 		energia_antes = arbitro.get("energia") if arbitro.get("energia") != null else -1
 		arbitro.energia_cambio.connect(_al_cambiar_energia)
 	puntaje = get_tree().get_first_node_in_group("puntaje")
-	if puntaje and puntaje.get("puntos") != null:
-		puntos_antes = puntaje.get("puntos")
+	if puntaje and puntaje.get("total") != null:
+		puntos_antes = puntaje.get("total")
 	print("sonidos: oleadas ", oleadas != null, " · árbitro ", arbitro != null, " · puntaje ", puntaje != null)
 
 
@@ -54,7 +54,7 @@ func _al_cambiar_energia(valor):
 func _process(_delta):
 	if puntaje == null or not is_instance_valid(puntaje):
 		return
-	var puntos = puntaje.get("puntos")
+	var puntos = puntaje.get("total")
 	if puntos != null and puntos > puntos_antes:
 		$Puntos.play()
 	if puntos != null:
