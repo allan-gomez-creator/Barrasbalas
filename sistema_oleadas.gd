@@ -251,7 +251,8 @@ func sacar_lanzador(numero):
 	var x = arbitro.global_position.x
 	var libres = get_tree().get_nodes_in_group("puestos_lanzador").filter(func(m):
 		var d = absf(m.global_position.x - x)
-		return d >= distancia_puesto_min and d <= distancia_puesto and not esta_ocupado(m))
+		return d >= distancia_puesto_min and d <= distancia_puesto and not esta_ocupado(m) \
+			and del_lado_del_arbitro(m))
 	if libres.is_empty():
 		return null
 	var puesto = libres.pick_random()
@@ -266,6 +267,19 @@ func sacar_lanzador(numero):
 	ocupados[puesto] = lanzador
 	print(lanzador.name, " en el puesto ", puesto.name, " (a ", snappedf(absf(puesto.global_position.x - x), 0.1), " m)")
 	return lanzador
+
+
+# Avance 5 (integración): que el puesto no quede detrás de una barrera de
+# policía cerrada, donde el árbitro no puede llegar a expulsarlo.
+# Le pregunta al nodo "zona_juego" (apariciones_moviles.gd de Allan) entre qué x
+# está abierta la cancha. Si no existe ese nodo, todos los puestos sirven.
+func del_lado_del_arbitro(puesto):
+	var zona = get_tree().get_first_node_in_group("zona_juego")
+	if zona == null or arbitro == null:
+		return true
+	var limites = zona.limites_abiertos(arbitro.global_position.x)
+	var x = puesto.global_position.x
+	return x > limites.x and x < limites.y
 
 
 func esta_ocupado(puesto):

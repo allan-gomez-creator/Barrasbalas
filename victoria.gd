@@ -23,9 +23,9 @@ func mostrar(energia, tiempo_texto, oleadas):
 # Si no hay puntaje en la escena, la pantalla queda como antes.
 func mostrar_puntos():
 	var puntaje = get_tree().get_first_node_in_group("puntaje")
-	if puntaje == null or puntaje.get("puntos") == null:
+	if puntaje == null or puntaje.get("total") == null:
 		return
-	var texto = "Puntos %d" % puntaje.get("puntos")
+	var texto = "Puntos %d" % puntaje.get("total")
 	if puntaje.get("record") != null:
 		texto += "   ·   Récord %d" % puntaje.get("record")
 	if puntaje.get("record_nuevo"):
