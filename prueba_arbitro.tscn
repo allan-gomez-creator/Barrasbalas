@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dsxg2p1f6vykg"]
 
+[ext_resource type="Script" uid="uid://cfy6co3th83u6" path="res://puntaje.gd" id="1_100up"]
 [ext_resource type="Script" uid="uid://c1xtfml70clwf" path="res://sistema_sol.gd" id="3_k76gx"]
 [ext_resource type="PackedScene" uid="uid://cksl1ukcmch7p" path="res://arbitro.tscn" id="3_pi376"]
 [ext_resource type="PackedScene" uid="uid://cjapsr6p0y63n" path="res://hud.tscn" id="4_4hjmf"]
@@ -47,6 +48,7 @@ size = Vector3(4, 3.5, 4)
 size = Vector3(4, 3.5, 4)
 
 [node name="ZonaA" type="Node3D" unique_id=176839135]
+script = ExtResource("1_100up")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=600594697]
 environment = SubResource("Environment_s61sg")
