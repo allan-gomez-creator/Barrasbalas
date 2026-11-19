@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://lanzador.gd" id="1_lanzador"]
+[ext_resource type="PackedScene" uid="uid://52giffn4ww16" path="res://personaje/character-male-d.glb" id="2_modelo"]
+[ext_resource type="PackedScene" path="res://botella.tscn" id="3_botella"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lanzador"]
+radius = 0.35
+height = 1.75
+
+[node name="Lanzador" type="CharacterBody3D" groups=["barristas", "lanzadores"]]
+axis_lock_linear_z = true
+script = ExtResource("1_lanzador")
+escena_botella = ExtResource("3_botella")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
+shape = SubResource("CapsuleShape3D_lanzador")
+
+[node name="Modelo" parent="." instance=ExtResource("2_modelo")]
+transform = Transform3D(-2.6, 0, -2.2729921e-07, 0, 2.6, 0, 2.2729921e-07, 0, -2.6, 0, 0, 0)
