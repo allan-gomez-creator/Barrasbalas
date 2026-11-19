@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://dsf752dxpm3dc" path="res://cantico.mp3" id="14_w48qg"]
 [ext_resource type="Script" uid="uid://cheajayngkfaa" path="res://rodar.gd" id="15_rodar"]
 [ext_resource type="Script" uid="uid://dd86cprxev7uy" path="res://ruido.gd" id="16_ruido"]
+[ext_resource type="Script" uid="uid://c4ioqvup7i1hs" path="res://camara_sigue.gd" id="17_cam"]
 
 [sub_resource type="ProceduralSkyMaterial" id="CieloMat"]
 
@@ -53,6 +54,7 @@ script = ExtResource("11_ciclo")
 transform = Transform3D(1, 0, 0, 0, 0.9848077, 0.17364818, 0, -0.17364818, 0.9848077, 0, 5.12, 12)
 projection = 1
 size = 10.0
+script = ExtResource("17_cam")
 
 [node name="Escenario" parent="." unique_id=834304079 instance=ExtResource("8_5vw27")]
 
@@ -108,7 +110,7 @@ mesh = SubResource("CajaMalla")
 
 [node name="HUD" parent="." unique_id=640245745 instance=ExtResource("9_hud")]
 
-[node name="Cantico" type="AudioStreamPlayer3D" parent="." unique_id=2101475597]
+[node name="Cantico" type="AudioStreamPlayer" parent="." unique_id=2101475597]
 stream = ExtResource("14_w48qg")
 volume_db = -10.0
 autoplay = true

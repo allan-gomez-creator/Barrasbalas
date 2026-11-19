@@ -11,8 +11,19 @@ enum Estado { PATRULLA, PERSEGUIR, AVISO, LANZAR, CIEGO }
 @export var puntos: Array[Vector3] = [
 	Vector3(5.5, 0, 0), Vector3(2.5, 0, 0)]
 @export var vida = 2
+@export var puntos_expulsion = 150   # los que da al salir expulsado (los suma el puntaje)
 # Si choca contra una tribuna mientras persigue, salta para subirse.
 @export var fuerza_salto = 5.0
+
+@export_group("Tribuna")
+# Los que crean las oleadas bajan saltando desde las gradas del fondo.
+@export var entra_por_tribuna = true
+# Probabilidad de bajar por las gradas (0.5 = la mitad). Los demás aparecen
+# en los puntos de los lados, justo fuera de la pantalla, como al principio.
+@export_range(0.0, 1.0) var prob_tribuna = 0.5
+@export var tiempo_escalon = 0.18    # s por escalón al bajar o subir las gradas
+@export var bajar_cerca_min = 3.5    # baja a esta distancia del árbitro, como mínimo...
+@export var bajar_cerca_max = 8.0    # ...y como máximo (siempre dentro de la pantalla)
 
 @export_group("Tacleo")
 @export var radio_tacleo = 1.5       # a esta distancia se prepara para taclear
@@ -35,6 +46,14 @@ var mallas = []
 var tinte: StandardMaterial3D
 var alerta: Label3D
 
+# Mientras baja de la tribuna o rodea una barrera, se mueve con un Tween
+# (sin física ni colisión) y no persigue.
+var en_tribuna = false
+var reloj_barrera = 0.0
+# Escalones de las gradas: (altura de arriba, z). La fila 1 está pegada al muro.
+const ESCALONES = [Vector2(2.25, -4.5), Vector2(1.5, -3.5), Vector2(0.75, -2.5)]
+const SALTITO = 0.3   # cuánto sube en cada brinco de escalón
+
 
 func _ready():
 	add_to_group("barristas")
@@ -45,9 +64,16 @@ func _ready():
 		persigue_siempre = true
 	if persigue_siempre:
 		estado = Estado.PERSEGUIR
+		if entra_por_tribuna and randf() < prob_tribuna:
+			# Las oleadas le ponen la posición DESPUÉS de add_child, así que
+			# esperamos a que termine este frame para saber a dónde debe llegar.
+			en_tribuna = true
+			bajar_de_tribuna.call_deferred()
 
 
 func _physics_process(delta):
+	if en_tribuna:
+		return
 	velocity += get_gravity() * delta
 	reloj = maxf(reloj - delta, 0.0)
 	if objetivo == null or not is_instance_valid(objetivo):
@@ -78,6 +104,7 @@ func _physics_process(delta):
 			else:
 				ir_a(objetivo.global_position)
 				saltar_si_choca()
+				revisar_barrera(delta)
 		Estado.AVISO:
 			# Quieto y agachado: es el tiempo que tiene el árbitro para reaccionar.
 			frenar()
@@ -200,5 +227,117 @@ func recibir_golpe(danio_recibido):
 	print(name, ": vida ", vida)
 	if vida <= 0:
 		print(name, " expulsado")
+		get_tree().call_group("puntaje", "sumar", puntos_expulsion, global_position)
 		remove_from_group("barristas")
 		queue_free()
+
+
+# ---------- Tribuna ----------
+
+# Aparece arriba en las gradas (entre el público), en una fila al azar, y
+# baja brincando escalón por escalón hasta la cancha. Baja en una x que se
+# vea en pantalla, cerca del árbitro, del mismo lado por donde lo mandó la
+# oleada (así se mantiene que cada grupo llega por un lado).
+func bajar_de_tribuna():
+	var x = global_position.x
+	var y_final = global_position.y
+	var zona = get_tree().get_first_node_in_group("zona_juego")
+	if zona and objetivo:
+		var lado = 1.0 if x >= objetivo.global_position.x else -1.0
+		var cerca = zona.x_cerca_del_arbitro(bajar_cerca_min, bajar_cerca_max, lado)
+		if cerca != null:
+			x = cerca
+			y_final = zona.altura_piso(x)
+	# Fila de salida al azar: la fila k está a 0.75·k de alto y en z = -1.5 - k.
+	var fila = randi_range(3, 5)
+	sin_colision(true)
+	var desde = Vector3(x, 0.75 * fila, -1.5 - fila)
+	global_position = desde
+	basis = Basis.looking_at(Vector3(0, 0, 1))   # mirando hacia la cancha
+	anim.play("jump")
+	var t = create_tween()
+	t.tween_interval(randf_range(0.0, 0.6))   # cada uno arranca a su ritmo, no todos a la vez
+	for k in range(fila - 1, 0, -1):
+		var escalon = Vector3(x, 0.75 * k, -1.5 - k)
+		brincar(t, desde, escalon)
+		desde = escalon
+	# Último salto: por encima del muro hasta la cancha.
+	brincar(t, desde, Vector3(x, 1.4, -1.2))
+	t.tween_property(self, "global_position", Vector3(x, y_final, 0.0), tiempo_escalon)
+	t.tween_callback(salir_de_tribuna)
+
+
+# Un brinco de un punto a otro: sube un poquito a mitad de camino y cae.
+func brincar(t, a, b):
+	var mitad = (a + b) / 2.0 + Vector3(0, SALTITO, 0)
+	t.tween_property(self, "global_position", mitad, tiempo_escalon / 2.0)
+	t.tween_property(self, "global_position", b, tiempo_escalon / 2.0)
+
+
+# Si una barrera cerrada queda entre él y el árbitro, la rodea por las gradas:
+# sube los escalones, camina por detrás de la valla y baja del otro lado.
+func revisar_barrera(delta):
+	reloj_barrera -= delta
+	if reloj_barrera > 0.0:
+		return
+	reloj_barrera = 0.5   # no hace falta revisar en cada frame
+	var b = barrera_en_medio()
+	if b:
+		rodear(b)
+
+
+func barrera_en_medio():
+	var yo = global_position.x
+	var el = objetivo.global_position.x
+	for b in get_tree().get_nodes_in_group("barreras"):
+		if b.get("abierta"):
+			continue
+		var bx = b.global_position.x
+		if (bx - yo) * (bx - el) < 0.0:   # signos distintos = la barrera está en medio
+			return b
+	return null
+
+
+func rodear(barrera):
+	print(name, " rodea la barrera por la tribuna")
+	en_tribuna = true
+	marcar_peligro(false)
+	sin_colision(true)
+	var x = global_position.x
+	var lado_destino = 1.0 if objetivo.global_position.x > barrera.global_position.x else -1.0
+	var x_final = barrera.global_position.x + lado_destino * 1.8
+	var arriba = ESCALONES[1]   # camina por la fila 2
+	var t = create_tween()
+	# Subir: muro y luego escalones.
+	t.tween_callback(anim.play.bind("jump"))
+	t.tween_property(self, "global_position", Vector3(x, 1.4, -1.2), tiempo_escalon)
+	t.tween_property(self, "global_position", Vector3(x, ESCALONES[2].x, ESCALONES[2].y), tiempo_escalon)
+	t.tween_property(self, "global_position", Vector3(x, arriba.x, arriba.y), tiempo_escalon)
+	# Caminar por detrás de la barrera.
+	t.tween_callback(caminar_hacia.bind(lado_destino))
+	t.tween_property(self, "global_position", Vector3(x_final, arriba.x, arriba.y),
+		absf(x_final - x) / rapidez)
+	# Bajar del otro lado. Queda un poco en el aire y la gravedad lo pone en
+	# el piso o en la tribuna que haya ahí.
+	t.tween_property(self, "global_position", Vector3(x_final, ESCALONES[2].x, ESCALONES[2].y), tiempo_escalon)
+	t.tween_callback(anim.play.bind("jump"))
+	t.tween_property(self, "global_position", Vector3(x_final, 1.6, -1.2), tiempo_escalon)
+	t.tween_property(self, "global_position", Vector3(x_final, 1.6, 0.0), tiempo_escalon)
+	t.tween_callback(salir_de_tribuna)
+
+
+func caminar_hacia(lado_x):
+	anim.play("walk")
+	basis = Basis.looking_at(Vector3(lado_x, 0, 0))
+
+
+func salir_de_tribuna():
+	global_position.z = 0.0
+	velocity = Vector3.ZERO
+	sin_colision(false)
+	en_tribuna = false
+	reloj_barrera = 0.5
+
+
+func sin_colision(si):
+	$CollisionShape3D.set_deferred("disabled", si)

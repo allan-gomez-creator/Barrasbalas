@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" path="res://publico.gd" id="1_pub"]
 [ext_resource type="PackedScene" path="res://personaje/character-female-e.glb" id="3_fe"]
+[ext_resource type="Script" path="res://barrera.gd" id="4_barrera"]
+[ext_resource type="Script" path="res://apariciones_moviles.gd" id="5_apar"]
 
 [sub_resource type="StandardMaterial3D" id="MatCancha"]
 albedo_color = Color(0.3, 0.48, 0.32, 1)
@@ -43,27 +45,52 @@ albedo_color = Color(0.64, 0.62, 0.58, 1)
 albedo_color = Color(0.07, 0.07, 0.09, 1)
 
 
+[sub_resource type="StandardMaterial3D" id="MatPolicia"]
+albedo_color = Color(0.12, 0.2, 0.42, 1)
+
+
 [sub_resource type="BoxMesh" id="PisoMalla"]
 material = SubResource("MatCancha")
-size = Vector3(30, 1, 4)
+size = Vector3(75, 1, 4)
 
 [sub_resource type="BoxShape3D" id="PisoForma"]
-size = Vector3(30, 1, 4)
+size = Vector3(75, 1, 4)
 
 [sub_resource type="BoxMesh" id="LineaLargaMalla"]
 material = SubResource("MatLinea")
-size = Vector3(30, 0.02, 0.08)
+size = Vector3(75, 0.02, 0.08)
 
-[sub_resource type="BoxMesh" id="LineaCentroMalla"]
+[sub_resource type="BoxMesh" id="LineaCortaMalla"]
 material = SubResource("MatLinea")
 size = Vector3(0.08, 0.02, 3.84)
 
-[sub_resource type="BoxMesh" id="TribunaMalla"]
+[sub_resource type="BoxMesh" id="Trib9Malla"]
 material = SubResource("MatTribuna")
 size = Vector3(9, 0.4, 4)
 
-[sub_resource type="BoxShape3D" id="TribunaForma"]
+[sub_resource type="BoxShape3D" id="Trib9Forma"]
 size = Vector3(9, 0.4, 4)
+
+[sub_resource type="BoxMesh" id="Trib6Malla"]
+material = SubResource("MatTribuna")
+size = Vector3(6, 0.4, 4)
+
+[sub_resource type="BoxShape3D" id="Trib6Forma"]
+size = Vector3(6, 0.4, 4)
+
+[sub_resource type="BoxMesh" id="Trib4Malla"]
+material = SubResource("MatTribuna")
+size = Vector3(4, 0.4, 4)
+
+[sub_resource type="BoxShape3D" id="Trib4Forma"]
+size = Vector3(4, 0.4, 4)
+
+[sub_resource type="BoxMesh" id="Trib3Malla"]
+material = SubResource("MatTribuna")
+size = Vector3(3, 0.4, 4)
+
+[sub_resource type="BoxShape3D" id="Trib3Forma"]
+size = Vector3(3, 0.4, 4)
 
 [sub_resource type="BoxMesh" id="VallaMalla"]
 material = SubResource("MatValla")
@@ -77,31 +104,31 @@ size = Vector3(1, 12, 4)
 
 [sub_resource type="BoxMesh" id="MuroMalla"]
 material = SubResource("MatMuro")
-size = Vector3(30, 0.9, 0.15)
+size = Vector3(75, 0.9, 0.15)
 
 [sub_resource type="BoxMesh" id="Fila1Malla"]
 material = SubResource("MatGradaA")
-size = Vector3(30, 0.75, 1)
+size = Vector3(75, 0.75, 1)
 
 [sub_resource type="BoxMesh" id="Fila2Malla"]
 material = SubResource("MatGradaB")
-size = Vector3(30, 1.5, 1)
+size = Vector3(75, 1.5, 1)
 
 [sub_resource type="BoxMesh" id="Fila3Malla"]
 material = SubResource("MatGradaA")
-size = Vector3(30, 2.25, 1)
+size = Vector3(75, 2.25, 1)
 
 [sub_resource type="BoxMesh" id="Fila4Malla"]
 material = SubResource("MatGradaB")
-size = Vector3(30, 3.0, 1)
+size = Vector3(75, 3.0, 1)
 
 [sub_resource type="BoxMesh" id="Fila5Malla"]
 material = SubResource("MatGradaA")
-size = Vector3(30, 3.75, 1)
+size = Vector3(75, 3.75, 1)
 
 [sub_resource type="BoxMesh" id="Fila6Malla"]
 material = SubResource("MatGradaB")
-size = Vector3(30, 4.5, 1)
+size = Vector3(75, 4.5, 1)
 
 [sub_resource type="BoxMesh" id="TunelMalla"]
 material = SubResource("MatTunel")
@@ -123,10 +150,17 @@ size = Vector3(4.6, 1.4, 0.2)
 material = SubResource("MatMarco")
 size = Vector3(4.9, 1.7, 0.15)
 
+[sub_resource type="BoxMesh" id="PoliciaMalla"]
+material = SubResource("MatPolicia")
+size = Vector3(0.8, 2.6, 4)
+
+[sub_resource type="BoxShape3D" id="PoliciaForma"]
+size = Vector3(0.4, 8, 4)
+
 [node name="Escenario" type="Node3D"]
 
 [node name="Suelo" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, -0.5, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Suelo"]
 mesh = SubResource("PisoMalla")
@@ -137,45 +171,158 @@ shape = SubResource("PisoForma")
 [node name="Lineas" type="Node3D" parent="."]
 
 [node name="LineaFrente" type="MeshInstance3D" parent="Lineas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.011, 1.85)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 0.011, 1.85)
 mesh = SubResource("LineaLargaMalla")
 
 [node name="LineaFondo" type="MeshInstance3D" parent="Lineas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.011, -1.85)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 0.011, -1.85)
 mesh = SubResource("LineaLargaMalla")
 
 [node name="LineaCentro" type="MeshInstance3D" parent="Lineas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.011, 0)
-mesh = SubResource("LineaCentroMalla")
+mesh = SubResource("LineaCortaMalla")
+
+[node name="LineaZona2" type="MeshInstance3D" parent="Lineas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0.011, 0)
+mesh = SubResource("LineaCortaMalla")
+
+[node name="LineaZona3" type="MeshInstance3D" parent="Lineas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0.011, 0)
+mesh = SubResource("LineaCortaMalla")
 
 [node name="Plataformas" type="Node3D" parent="."]
 
-[node name="Plataforma1" type="StaticBody3D" parent="Plataformas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0.4, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/Plataforma1"]
-mesh = SubResource("TribunaMalla")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/Plataforma1"]
-shape = SubResource("TribunaForma")
-
-[node name="Plataforma2" type="StaticBody3D" parent="Plataformas"]
+[node name="TribunaIzq" type="StaticBody3D" parent="Plataformas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0.4, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/Plataforma2"]
-mesh = SubResource("TribunaMalla")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/TribunaIzq"]
+mesh = SubResource("Trib9Malla")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/Plataforma2"]
-shape = SubResource("TribunaForma")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/TribunaIzq"]
+shape = SubResource("Trib9Forma")
 
-[node name="Plataforma3" type="StaticBody3D" parent="Plataformas"]
+[node name="TribunaDer" type="StaticBody3D" parent="Plataformas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0.4, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/TribunaDer"]
+mesh = SubResource("Trib9Malla")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/TribunaDer"]
+shape = SubResource("Trib9Forma")
+
+[node name="Valla1" type="StaticBody3D" parent="Plataformas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.9, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/Plataforma3"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/Valla1"]
 mesh = SubResource("VallaMalla")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/Plataforma3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/Valla1"]
 shape = SubResource("VallaForma")
+
+[node name="TribunaZ2a" type="StaticBody3D" parent="Plataformas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0.4, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/TribunaZ2a"]
+mesh = SubResource("Trib4Malla")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/TribunaZ2a"]
+shape = SubResource("Trib4Forma")
+
+[node name="Valla2" type="StaticBody3D" parent="Plataformas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.5, 2.9, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/Valla2"]
+mesh = SubResource("VallaMalla")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/Valla2"]
+shape = SubResource("VallaForma")
+
+[node name="TribunaZ2b" type="StaticBody3D" parent="Plataformas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0.4, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/TribunaZ2b"]
+mesh = SubResource("Trib6Malla")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/TribunaZ2b"]
+shape = SubResource("Trib6Forma")
+
+[node name="GradaAltaZ2" type="StaticBody3D" parent="Plataformas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5, 1.0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/GradaAltaZ2"]
+mesh = SubResource("Trib3Malla")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/GradaAltaZ2"]
+shape = SubResource("Trib3Forma")
+
+[node name="TribunaZ3" type="StaticBody3D" parent="Plataformas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 0.4, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/TribunaZ3"]
+mesh = SubResource("Trib4Malla")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataformas/TribunaZ3"]
+shape = SubResource("Trib4Forma")
+
+[node name="Barreras" type="Node3D" parent="."]
+
+[node name="BarreraZona2" type="StaticBody3D" parent="Barreras"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.3, 4, 0)
+script = ExtResource("4_barrera")
+abre_tras_oleada = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barreras/BarreraZona2"]
+shape = SubResource("PoliciaForma")
+
+[node name="Valla" type="MeshInstance3D" parent="Barreras/BarreraZona2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.7, 0)
+mesh = SubResource("PoliciaMalla")
+
+[node name="Aviso" type="Label3D" parent="Barreras/BarreraZona2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0, 2.1)
+pixel_size = 0.01
+text = "POLICÍA"
+font_size = 40
+outline_size = 10
+modulate = Color(0.85, 0.9, 1, 1)
+
+[node name="Letrero" type="Label3D" parent="Barreras/BarreraZona2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2.1)
+pixel_size = 0.01
+billboard = 1
+text = "¡La policía abrió el paso!"
+font_size = 40
+outline_size = 10
+modulate = Color(1, 1, 1, 1)
+
+[node name="BarreraZona3" type="StaticBody3D" parent="Barreras"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.3, 4, 0)
+script = ExtResource("4_barrera")
+abre_tras_oleada = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barreras/BarreraZona3"]
+shape = SubResource("PoliciaForma")
+
+[node name="Valla" type="MeshInstance3D" parent="Barreras/BarreraZona3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.7, 0)
+mesh = SubResource("PoliciaMalla")
+
+[node name="Aviso" type="Label3D" parent="Barreras/BarreraZona3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0, 2.1)
+pixel_size = 0.01
+text = "POLICÍA"
+font_size = 40
+outline_size = 10
+modulate = Color(0.85, 0.9, 1, 1)
+
+[node name="Letrero" type="Label3D" parent="Barreras/BarreraZona3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 2.1)
+pixel_size = 0.01
+billboard = 1
+text = "¡La policía abrió el paso!"
+font_size = 40
+outline_size = 10
+modulate = Color(1, 1, 1, 1)
 
 [node name="Bordes" type="Node3D" parent="."]
 
@@ -186,7 +333,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, 6, 0)
 shape = SubResource("BordeForma")
 
 [node name="BordeDer" type="StaticBody3D" parent="Bordes"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 6, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.5, 6, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bordes/BordeDer"]
 shape = SubResource("BordeForma")
@@ -194,53 +341,53 @@ shape = SubResource("BordeForma")
 [node name="Gradas" type="Node3D" parent="."]
 
 [node name="Muro" type="MeshInstance3D" parent="Gradas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, -2.15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 0.45, -2.15)
 mesh = SubResource("MuroMalla")
 
 [node name="Fila1" type="MeshInstance3D" parent="Gradas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, -2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 0.375, -2.5)
 mesh = SubResource("Fila1Malla")
 
 [node name="Fila2" type="MeshInstance3D" parent="Gradas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, -3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 0.75, -3.5)
 mesh = SubResource("Fila2Malla")
 
 [node name="Fila3" type="MeshInstance3D" parent="Gradas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, -4.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 1.125, -4.5)
 mesh = SubResource("Fila3Malla")
 
 [node name="Fila4" type="MeshInstance3D" parent="Gradas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -5.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 1.5, -5.5)
 mesh = SubResource("Fila4Malla")
 
 [node name="Fila5" type="MeshInstance3D" parent="Gradas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.875, -6.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 1.875, -6.5)
 mesh = SubResource("Fila5Malla")
 
 [node name="Fila6" type="MeshInstance3D" parent="Gradas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, -7.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 2.25, -7.5)
 mesh = SubResource("Fila6Malla")
 
 [node name="Tunel" type="Node3D" parent="."]
 
 [node name="BocaTunel" type="MeshInstance3D" parent="Tunel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1.6, -2.05)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.5, 1.6, -2.05)
 mesh = SubResource("TunelMalla")
 
 [node name="PilarIzq" type="MeshInstance3D" parent="Tunel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8, 1.8, -2.0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.8, 1.8, -2.0)
 mesh = SubResource("PilarMalla")
 
 [node name="PilarDer" type="MeshInstance3D" parent="Tunel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.2, 1.8, -2.0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.2, 1.8, -2.0)
 mesh = SubResource("PilarMalla")
 
 [node name="Dintel" type="MeshInstance3D" parent="Tunel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 3.4, -2.0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.5, 3.4, -2.0)
 mesh = SubResource("DintelMalla")
 
 [node name="Letrero" type="Label3D" parent="Tunel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 4.0, -1.95)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.5, 4.0, -1.95)
 pixel_size = 0.01
 text = "CAMERINOS"
 font_size = 40
@@ -278,42 +425,93 @@ modulate = Color(1, 0.72, 0.2, 1)
 script = ExtResource("1_pub")
 
 [node name="Hincha1" parent="Publico" instance=ExtResource("3_fe")]
-transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, -8.30, 2.250, -4.35)
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 28.30, 2.250, -4.35)
 
 [node name="Hincha2" parent="Publico" instance=ExtResource("3_fe")]
-transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 12.33, 2.250, -4.35)
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 36.98, 2.250, -4.35)
 
 [node name="Hincha3" parent="Publico" instance=ExtResource("3_fe")]
-transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 1.98, 2.250, -4.35)
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 52.11, 2.250, -4.35)
 
 [node name="Hincha4" parent="Publico" instance=ExtResource("3_fe")]
-transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 12.33, 3.000, -5.35)
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 45.69, 2.250, -4.35)
 
 [node name="Hincha5" parent="Publico" instance=ExtResource("3_fe")]
-transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, -12.02, 3.000, -5.35)
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 33.95, 2.250, -4.35)
 
 [node name="Hincha6" parent="Publico" instance=ExtResource("3_fe")]
-transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, -13.96, 3.000, -5.35)
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 3.64, 2.250, -4.35)
 
 [node name="Hincha7" parent="Publico" instance=ExtResource("3_fe")]
-transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 6.03, 3.750, -6.35)
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 1.04, 2.250, -4.35)
 
 [node name="Hincha8" parent="Publico" instance=ExtResource("3_fe")]
-transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 10.04, 3.750, -6.35)
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 52.12, 3.000, -5.35)
 
 [node name="Hincha9" parent="Publico" instance=ExtResource("3_fe")]
-transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 13.92, 3.750, -6.35)
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 46.33, 3.000, -5.35)
 
 [node name="Hincha10" parent="Publico" instance=ExtResource("3_fe")]
-transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 3.72, 4.500, -7.35)
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, -11.44, 3.000, -5.35)
 
 [node name="Hincha11" parent="Publico" instance=ExtResource("3_fe")]
-transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, -3.66, 4.500, -7.35)
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 42.54, 3.000, -5.35)
 
 [node name="Hincha12" parent="Publico" instance=ExtResource("3_fe")]
-transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 9.91, 4.500, -7.35)
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 22.38, 3.000, -5.35)
+
+[node name="Hincha13" parent="Publico" instance=ExtResource("3_fe")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 28.10, 3.000, -5.35)
+
+[node name="Hincha14" parent="Publico" instance=ExtResource("3_fe")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 1.28, 3.000, -5.35)
+
+[node name="Hincha15" parent="Publico" instance=ExtResource("3_fe")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 31.00, 3.750, -6.35)
+
+[node name="Hincha16" parent="Publico" instance=ExtResource("3_fe")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 43.16, 3.750, -6.35)
+
+[node name="Hincha17" parent="Publico" instance=ExtResource("3_fe")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 18.96, 3.750, -6.35)
+
+[node name="Hincha18" parent="Publico" instance=ExtResource("3_fe")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 48.78, 3.750, -6.35)
+
+[node name="Hincha19" parent="Publico" instance=ExtResource("3_fe")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 22.50, 3.750, -6.35)
+
+[node name="Hincha20" parent="Publico" instance=ExtResource("3_fe")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 58.50, 3.750, -6.35)
+
+[node name="Hincha21" parent="Publico" instance=ExtResource("3_fe")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 13.34, 3.750, -6.35)
+
+[node name="Hincha22" parent="Publico" instance=ExtResource("3_fe")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 25.06, 4.500, -7.35)
+
+[node name="Hincha23" parent="Publico" instance=ExtResource("3_fe")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 30.61, 4.500, -7.35)
+
+[node name="Hincha24" parent="Publico" instance=ExtResource("3_fe")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 21.61, 4.500, -7.35)
+
+[node name="Hincha25" parent="Publico" instance=ExtResource("3_fe")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 48.79, 4.500, -7.35)
+
+[node name="Hincha26" parent="Publico" instance=ExtResource("3_fe")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 27.57, 4.500, -7.35)
+
+[node name="Hincha27" parent="Publico" instance=ExtResource("3_fe")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, -5.48, 4.500, -7.35)
+
+[node name="Hincha28" parent="Publico" instance=ExtResource("3_fe")]
+transform = Transform3D(1.8, 0, 0, 0, 1.8, 0, 0, 0, 1.8, 4.18, 4.500, -7.35)
 
 [node name="Apariciones" type="Node3D" parent="."]
+script = ExtResource("5_apar")
+borde_izq = -15.0
+borde_der = 60.0
 
 [node name="AparicionIzq" type="Marker3D" parent="Apariciones" groups=["apariciones"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.6, 0)
@@ -321,8 +519,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.6, 0)
 [node name="AparicionDer" type="Marker3D" parent="Apariciones" groups=["apariciones"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.6, 0)
 
-[node name="TribunaIzq" type="Marker3D" parent="Apariciones" groups=["apariciones"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0.6, 0)
+[node name="PuestosLanzador" type="Node3D" parent="."]
 
-[node name="TribunaDer" type="Marker3D" parent="Apariciones" groups=["apariciones"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.6, 0)
+[node name="Puesto1" type="Marker3D" parent="PuestosLanzador" groups=["puestos_lanzador"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.6, 0)
+
+[node name="Puesto2" type="Marker3D" parent="PuestosLanzador" groups=["puestos_lanzador"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.6, 0)
+
+[node name="Puesto3" type="Marker3D" parent="PuestosLanzador" groups=["puestos_lanzador"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.6, 0)
+
+[node name="Puesto4" type="Marker3D" parent="PuestosLanzador" groups=["puestos_lanzador"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0.6, 0)
+
+[node name="Puesto5" type="Marker3D" parent="PuestosLanzador" groups=["puestos_lanzador"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0.6, 0)
+
+[node name="Puesto6" type="Marker3D" parent="PuestosLanzador" groups=["puestos_lanzador"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0.6, 0)
+
+[node name="Puesto7" type="Marker3D" parent="PuestosLanzador" groups=["puestos_lanzador"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5, 1.2, 0)
+
+[node name="Puesto8" type="Marker3D" parent="PuestosLanzador" groups=["puestos_lanzador"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 0.6, 0)
