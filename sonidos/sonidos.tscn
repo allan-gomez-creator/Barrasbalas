@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://sonidos.gd" id="1_sonidos"]
+[ext_resource type="AudioStream" path="res://sonidos/pito.wav" id="2_pito"]
+[ext_resource type="AudioStream" path="res://sonidos/kenney_bong_001.wav" id="3_golpe"]
+[ext_resource type="AudioStream" path="res://sonidos/kenney_confirmation_003.wav" id="4_puntos"]
+
+[node name="Sonidos" type="Node"]
+script = ExtResource("1_sonidos")
+
+[node name="Pito" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_pito")
+volume_db = -6.0
+
+[node name="Golpe" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_golpe")
+volume_db = -3.0
+
+[node name="Puntos" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_puntos")
+volume_db = -10.0
+max_polyphony = 3

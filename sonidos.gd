@@ -7,9 +7,9 @@ extends Node
 #  - Puntos: cuando sube el puntaje (variable "puntos" del nodo del grupo "puntaje").
 #    ⚠️ Si en el script de Juan Manuel la variable se llama distinto, cambiar
 #    solo la palabra "puntos" en _process().
-# Los sonidos están en la carpeta sonidos/ (hechos por código, sin derechos de
-# nadie). Para usar otros, por ejemplo los de Kenney (CC0), se reemplaza el
-# archivo con el mismo nombre o se arrastra otro al Stream de cada nodo.
+# Los sonidos están en la carpeta sonidos/: el golpe y los puntos son del paquete
+# "Interface Sounds" de Kenney (CC0); el pito lo generamos por código, porque
+# Kenney no tiene pito de árbitro. Los créditos están en sonidos/CREDITOS.txt.
 
 var arbitro = null
 var puntaje = null
