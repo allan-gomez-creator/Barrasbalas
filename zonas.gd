@@ -17,14 +17,14 @@ var zonas = [
 	 "trapos": [[51.0, "AL TÚNEL NO LLEGA"]]},
 ]
 
-const Z_LETRERO = -2.95    # frente de la fila 2 de las gradas
+const Z_LETRERO = -2.93    # justo delante del frente de las tribunas
 
 # Lunes 23 (tarde): el arco es del "Soccer Field" de OpenGameArt (CC0), que
 # consiguió Martín. El archivo trae toda una cancha; aquí solo se usa un arco.
 const MODELO_CANCHA = preload("res://assets/estadio/soccer-field/Soccer Field.fbx")
 @export var arco_x = -10.5       # dónde va el arco (detrás de la tribuna izquierda, zona 1)
 @export var escala_arco = 2.35   # el arco viene de 1.04 de alto: x 2.35 = 2.44 m, el alto real
-const Z_TRAPO = -3.95      # frente de la fila 3
+const Z_TRAPO = -2.96      # colgados del frente de las tribunas
 
 
 func _ready():
