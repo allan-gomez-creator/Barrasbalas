@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://meta.gd" id="6_meta"]
 [ext_resource type="Script" path="res://luces_estadio.gd" id="7_luces"]
 [ext_resource type="Script" path="res://zonas.gd" id="8_zonas"]
+[ext_resource type="Script" path="res://gradas.gd" id="9_gradas"]
 
 [sub_resource type="StandardMaterial3D" id="MatCancha"]
 albedo_color = Color(0.3, 0.48, 0.32, 1)
@@ -374,6 +375,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60.5, 6, 0)
 shape = SubResource("BordeForma")
 
 [node name="Gradas" type="Node3D" parent="."]
+script = ExtResource("9_gradas")
 
 [node name="Muro" type="MeshInstance3D" parent="Gradas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 0.45, -2.15)

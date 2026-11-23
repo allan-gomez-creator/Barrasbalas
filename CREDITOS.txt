@@ -10,6 +10,8 @@ Estadio (carpeta assets/estadio/):
     Se usa el arco.
   - City Kit (Roads) - Kenney (www.kenney.nl) - CC0
     Se usan la valla (construction-fence) y los conos (construction-cone).
+  - Racing Kit - Kenney (www.kenney.nl) - CC0
+    Se usan las tribunas (grandStand, grandStandCovered) y las banderas (flagRed, flagGreen).
 
 Sonidos:
   - Ver sonidos/CREDITOS.txt
