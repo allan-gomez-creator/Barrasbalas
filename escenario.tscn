@@ -5,6 +5,8 @@
 [ext_resource type="Script" path="res://barrera.gd" id="4_barrera"]
 [ext_resource type="Script" path="res://apariciones_moviles.gd" id="5_apar"]
 [ext_resource type="Script" path="res://meta.gd" id="6_meta"]
+[ext_resource type="Script" path="res://luces_estadio.gd" id="7_luces"]
+[ext_resource type="Script" path="res://zonas.gd" id="8_zonas"]
 
 [sub_resource type="StandardMaterial3D" id="MatCancha"]
 albedo_color = Color(0.3, 0.48, 0.32, 1)
@@ -15,11 +17,11 @@ albedo_color = Color(0.92, 0.92, 0.9, 1)
 
 
 [sub_resource type="StandardMaterial3D" id="MatTribuna"]
-albedo_color = Color(0.66, 0.52, 0.38, 1)
+albedo_color = Color(0.56, 0.56, 0.58, 1)
 
 
 [sub_resource type="StandardMaterial3D" id="MatValla"]
-albedo_color = Color(0.6, 0.47, 0.35, 1)
+albedo_color = Color(0.93, 0.93, 0.9, 1)
 
 
 [sub_resource type="StandardMaterial3D" id="MatGradaA"]
@@ -215,7 +217,7 @@ mesh = SubResource("Trib9Malla")
 shape = SubResource("Trib9Forma")
 
 [node name="Valla1" type="StaticBody3D" parent="Plataformas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 2.9, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.9, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/Valla1"]
 mesh = SubResource("VallaMalla")
@@ -233,7 +235,7 @@ mesh = SubResource("Trib4Malla")
 shape = SubResource("Trib4Forma")
 
 [node name="Valla2" type="StaticBody3D" parent="Plataformas"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.5, 2.9, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.5, 0.9, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/Valla2"]
 mesh = SubResource("VallaMalla")
@@ -595,3 +597,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5, 1.2, 0)
 
 [node name="Puesto8" type="Marker3D" parent="PuestosLanzador" groups=["puestos_lanzador"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 0.6, 0)
+
+[node name="Puesto9" type="Marker3D" parent="PuestosLanzador" groups=["puestos_lanzador"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.1, 0)
+
+[node name="Puesto10" type="Marker3D" parent="PuestosLanzador" groups=["puestos_lanzador"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.5, 1.1, 0)
+
+[node name="LucesEstadio" type="Node3D" parent="."]
+script = ExtResource("7_luces")
+
+[node name="Zonas" type="Node3D" parent="."]
+script = ExtResource("8_zonas")

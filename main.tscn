@@ -28,6 +28,9 @@ background_mode = 2
 sky = SubResource("Cielo")
 ambient_light_source = 3
 tonemap_mode = 2
+glow_enabled = true
+glow_intensity = 0.6
+glow_bloom = 0.05
 
 [sub_resource type="BoxMesh" id="CajaMalla"]
 size = Vector3(0.6, 0.6, 0.6)
