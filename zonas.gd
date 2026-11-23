@@ -8,7 +8,7 @@ extends Node3D
 var zonas = [
 	{"x": -4.0, "nombre": "ZONA 1 · CÍRCULO CENTRAL",
 	 "color_a": Color(0.8, 0.1, 0.12), "color_b": Color(0.96, 0.96, 0.94),
-	 "trapos": [[-11.0, "¡VAMOS LOCAL!"], [6.0, "ÁRBITRO VENDIDO"]]},
+	 "trapos": [[-1.5, "¡VAMOS LOCAL!"], [6.0, "ÁRBITRO VENDIDO"]]},
 	{"x": 18.5, "nombre": "ZONA 2 · RUMBO AL TÚNEL",
 	 "color_a": Color(0.1, 0.55, 0.25), "color_b": Color(0.96, 0.96, 0.94),
 	 "trapos": [[24.0, "PITO COMPRADO"], [37.0, "¡FUERA EL ÁRBITRO!"]]},
@@ -18,10 +18,17 @@ var zonas = [
 ]
 
 const Z_LETRERO = -2.95    # frente de la fila 2 de las gradas
+
+# Lunes 23 (tarde): el arco es del "Soccer Field" de OpenGameArt (CC0), que
+# consiguió Martín. El archivo trae toda una cancha; aquí solo se usa un arco.
+const MODELO_CANCHA = preload("res://assets/estadio/soccer-field/Soccer Field.fbx")
+@export var arco_x = -10.5       # dónde va el arco (detrás de la tribuna izquierda, zona 1)
+@export var escala_arco = 2.35   # el arco viene de 1.04 de alto: x 2.35 = 2.44 m, el alto real
 const Z_TRAPO = -3.95      # frente de la fila 3
 
 
 func _ready():
+	arco()
 	for zona in zonas:
 		letrero(zona)
 		for trapo_info in zona["trapos"]:
@@ -70,3 +77,21 @@ func caja(tamano, posicion, color):
 	m.material_override = mat
 	add_child(m)
 	return m
+
+
+# Del modelo de la cancha se deja solo un arco. Las otras mallas se vacían en vez
+# de borrarse, porque en el modelo el arco cuelga de la malla de la cancha.
+func arco():
+	var cancha = MODELO_CANCHA.instantiate()
+	for malla in cancha.find_children("*", "MeshInstance3D", true, false):
+		if malla.name != "Soccer Goal":
+			malla.mesh = null
+	var nodo = Node3D.new()
+	nodo.name = "Arco"
+	add_child(nodo)
+	nodo.add_child(cancha)
+	# En el modelo el arco está en x = -11.41, z = 0, con la boca mirando a +x.
+	cancha.position = Vector3(11.41, 0, 0)
+	nodo.scale = Vector3.ONE * escala_arco
+	nodo.rotation_degrees.y = -90          # la boca del arco mira a la cámara
+	nodo.position = Vector3(arco_x, 0, -0.9)

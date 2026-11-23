@@ -7,6 +7,11 @@ extends StaticBody3D
 
 signal se_abrio
 
+# Lunes 23 (tarde): la valla y los conos son del City Kit (Roads) de Kenney (CC0),
+# que consiguió Martín. Ver CREDITOS.txt.
+const MODELO_VALLA = preload("res://assets/estadio/city-kit-roads/construction-fence.glb")
+const MODELO_CONO = preload("res://assets/estadio/city-kit-roads/construction-cone.glb")
+
 @export var abre_tras_oleada = 3
 @export var ancho_valla = 1.1      # m que se ve de frente (la colisión sigue igual de delgada)
 @export var alto_valla = 1.3
@@ -50,7 +55,7 @@ func abrir():
 	letrero.visible = false
 
 
-# La valla: dos postes, tres barras, una placa amarilla y la sirena encima.
+# La valla: el modelo de Kenney, una placa amarilla, la sirena encima y dos conos.
 # El nodo está a 4 m de alto, así que todo baja 4 m para quedar en el piso.
 func armar_valla():
 	valla_nueva = Node3D.new()
@@ -58,22 +63,22 @@ func armar_valla():
 	valla_nueva.position = Vector3(0, -4.0, 0.3)
 	add_child(valla_nueva)
 
-	var metal = StandardMaterial3D.new()
-	metal.albedo_color = Color(0.62, 0.65, 0.7)
-	metal.metallic = 0.5
-	metal.roughness = 0.45
 	var amarillo = StandardMaterial3D.new()
 	amarillo.albedo_color = Color(0.98, 0.8, 0.1)
 
-	var medio = ancho_valla / 2.0
+	# La valla de Kenney mide 0.375 de largo y 0.18 de alto, y viene de lado:
+	# se gira 90° para que quede de frente y se estira al ancho y alto que queremos.
+	var modelo = MODELO_VALLA.instantiate()
+	modelo.rotation_degrees.y = 90
+	modelo.scale = Vector3(5.0, alto_valla / 0.179, ancho_valla / 0.375)
+	valla_nueva.add_child(modelo)
+	# Dos conos a los lados, un poco adelante.
 	for lado in [-1, 1]:
-		caja(Vector3(0.08, alto_valla, 0.08), Vector3(lado * medio, alto_valla / 2.0, 0), metal)
-	for alto in [0.15, alto_valla * 0.55, alto_valla - 0.05]:
-		caja(Vector3(ancho_valla, 0.06, 0.06), Vector3(0, alto, 0), metal)
-	for i in 6:   # barrotes delgados
-		var x = -medio + ancho_valla * (i + 1) / 7.0
-		caja(Vector3(0.03, alto_valla - 0.2, 0.03), Vector3(x, alto_valla / 2.0, 0), metal)
-	caja(Vector3(ancho_valla - 0.1, 0.32, 0.04), Vector3(0, alto_valla * 0.55 + 0.2, 0.03), amarillo)
+		var cono = MODELO_CONO.instantiate()
+		cono.scale = Vector3.ONE * 6.0      # 0.094 x 6 = 0.56 m de alto
+		cono.position = Vector3(lado * (ancho_valla / 2.0 + 0.35), 0, 0.9)
+		valla_nueva.add_child(cono)
+	caja(Vector3(ancho_valla - 0.1, 0.32, 0.04), Vector3(0, alto_valla * 0.55 + 0.2, 0.22), amarillo)
 
 	var texto = Label3D.new()
 	texto.text = "POLICÍA"
@@ -81,7 +86,7 @@ func armar_valla():
 	texto.font_size = 40
 	texto.modulate = Color(0.05, 0.05, 0.08)
 	texto.outline_size = 0
-	texto.position = Vector3(0, alto_valla * 0.55 + 0.2, 0.06)
+	texto.position = Vector3(0, alto_valla * 0.55 + 0.2, 0.25)
 	valla_nueva.add_child(texto)
 
 	sirena = StandardMaterial3D.new()
