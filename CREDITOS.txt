@@ -1,0 +1,15 @@
+BarrasBalas - Créditos de assets
+================================
+Todos los assets son CC0 (dominio público) o hechos por el equipo.
+
+Personajes:
+  - Kenney (www.kenney.nl) - CC0
+
+Estadio (carpeta assets/estadio/):
+  - Soccer Field - tiko479 (opengameart.org/content/soccer-field) - CC0
+    Se usa el arco.
+  - City Kit (Roads) - Kenney (www.kenney.nl) - CC0
+    Se usan la valla (construction-fence) y los conos (construction-cone).
+
+Sonidos:
+  - Ver sonidos/CREDITOS.txt
