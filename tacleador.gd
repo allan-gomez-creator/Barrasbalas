@@ -14,6 +14,10 @@ enum Estado { PATRULLA, PERSEGUIR, AVISO, LANZAR, CIEGO }
 @export var puntos_expulsion = 150   # los que da al salir expulsado (los suma el puntaje)
 # Si choca contra una tribuna mientras persigue, salta para subirse.
 @export var fuerza_salto = 5.0
+# Viernes 20: el brinco por encima de un lanzador.
+@export var salto_lanzador_alto = 2.2    # m por encima de los pies: más alto que el lanzador (1.75)
+@export var salto_lanzador_largo = 1.3   # m: cae a esta distancia del lanzador, del otro lado
+@export var tiempo_salto_lanzador = 0.5  # s que dura el brinco
 
 @export_group("Tribuna")
 # Los que crean las oleadas bajan saltando desde las gradas del fondo.
@@ -211,10 +215,54 @@ func saltar_si_choca():
 		return
 	for i in get_slide_collision_count():
 		var choque = get_slide_collision(i)
+		# Viernes 20 - Allan: si choca con un lanzador (que no se mueve de su
+		# puesto), lo salta por encima para que no se forme un trancón.
+		var otro = choque.get_collider()
+		if otro is Node and otro.is_in_group("lanzadores"):
+			# Solo si el lanzador le tapa el camino hacia el árbitro (y no si
+			# ya lo dejó atrás: el choque del cuadro anterior todavía aparece
+			# aquí justo después de caer).
+			var al_lanzador = otro.global_position.x - global_position.x
+			var al_arbitro = objetivo.global_position.x - global_position.x
+			if al_lanzador * al_arbitro > 0.0:
+				saltar_por_encima(otro)
+				return
+			continue
 		if choque.get_collider() is StaticBody3D and absf(choque.get_normal().y) < 0.3:
 			velocity.y = fuerza_salto
 			anim.play("jump")
 			return
+
+
+# Brinca por encima del lanzador y cae del otro lado, como cuando rodea una
+# barrera: con un Tween y sin colisión, para que no se quede parado en su cabeza.
+func saltar_por_encima(lanzador):
+	var lado_x = signf(lanzador.global_position.x - global_position.x)
+	if lado_x == 0.0:
+		lado_x = signf(objetivo.global_position.x - global_position.x)
+	var x_final = lanzador.global_position.x + lado_x * salto_lanzador_largo
+	var y_final = global_position.y
+	var zona = get_tree().get_first_node_in_group("zona_juego")
+	if zona:
+		# Que no caiga detrás de una barrera cerrada ni fuera del nivel...
+		var lim = zona.limites_abiertos(global_position.x)
+		x_final = clampf(x_final, lim.x + 0.5, lim.y - 0.5)
+		# ...y que caiga sobre lo que haya ahí: piso, tribuna o plataforma.
+		y_final = zona.altura_piso(x_final)
+	var desde = global_position
+	var hasta = Vector3(x_final, y_final, 0.0)
+	var arriba = Vector3((desde.x + hasta.x) / 2.0, maxf(desde.y, hasta.y) + salto_lanzador_alto, 0.0)
+	print(name, " salta por encima de ", lanzador.name)
+	en_tribuna = true
+	marcar_peligro(false)
+	sin_colision(true)
+	anim.play("jump")
+	var t = create_tween()
+	t.tween_property(self, "global_position", arriba, tiempo_salto_lanzador / 2.0) \
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	t.tween_property(self, "global_position", hasta, tiempo_salto_lanzador / 2.0) \
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	t.tween_callback(salir_de_tribuna)
 
 
 func frenar():

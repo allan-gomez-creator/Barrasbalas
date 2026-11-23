@@ -48,7 +48,6 @@ size = Vector3(4, 3.5, 4)
 size = Vector3(4, 3.5, 4)
 
 [node name="ZonaA" type="Node3D" unique_id=176839135]
-script = ExtResource("1_100up")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=600594697]
 environment = SubResource("Environment_s61sg")
@@ -108,6 +107,8 @@ entorno = NodePath("../WorldEnvironment")
 script = ExtResource("4_hql4h")
 
 [node name="Arbitro" parent="." unique_id=613690728 instance=ExtResource("3_pi376")]
-probar_con_t = true
 
 [node name="HUD" parent="." unique_id=337991057 instance=ExtResource("4_4hjmf")]
+
+[node name="Puntaje" type="Node" parent="." unique_id=1554582908]
+script = ExtResource("1_100up")

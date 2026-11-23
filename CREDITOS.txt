@@ -1,0 +1,85 @@
+BARRASBALAS — CRÉDITOS Y LICENCIAS
+==================================
+
+Juego hecho por: Allan Gómez, Juan Manuel y Martín Armando Bonilla.
+Hecho con Godot Engine 4 (www.godotengine.org), licencia MIT.
+
+Regla del equipo: solo usamos recursos con licencia CC0 (dominio público) o hechos
+por nosotros. Cada paquete va en su carpeta con su archivo de licencia.
+
+
+MODELOS 3D
+----------
+personaje/character-male-a.glb, character-male-d.glb, character-female-b.glb,
+character-female-e.glb y personaje/Textures/colormap.png
+  Paquete "Mini Characters" (1.0) de Kenney (www.kenney.nl)
+  Licencia: Creative Commons Zero (CC0)
+  http://creativecommons.org/publicdomain/zero/1.0/
+  Licencia en: personaje/LICENCIA Kenney (CC0).txt
+
+assets/personajes/colormap_arbitro.png
+  Textura del árbitro (ropa negra). La hizo el equipo recoloreando el colormap.png
+  de Kenney de arriba. CC0, igual que el original.
+  Licencia en: assets/personajes/LICENCIA.txt
+
+
+EFECTOS VISUALES
+----------------
+assets/kenney_particle_pack/ (star, scratch, smoke, dirt)
+  Paquete "Particle Pack" (1.1) de Kenney (www.kenney.nl)
+  Licencia: Creative Commons Zero (CC0)
+  Licencia en: assets/kenney_particle_pack/LICENSE.txt
+  Se usan en efectos.gd (golpe, expulsión, tacleo y botella rota).
+  La tarjeta roja que sube al expulsar la dibuja el código (sin imagen).
+
+
+SONIDOS
+-------
+sonidos/kenney_bong_001.wav          -> golpe al árbitro
+sonidos/kenney_confirmation_003.wav  -> puntos
+  Paquete "Interface Sounds" (1.0) de Kenney (www.kenney.nl)
+  Licencia: Creative Commons Zero (CC0)
+  Detalle en: sonidos/CREDITOS.txt
+
+sonidos/pito.wav
+  Hecho por el equipo, generado por código. No viene de ningún paquete.
+
+
+MÚSICA
+------
+cantico.mp3
+  ⚠ PENDIENTE: este cántico se sacó de YouTube y NO tiene licencia libre.
+  Se reemplaza el jueves 26 por uno CC0 o grabado por el equipo,
+  y aquí se anota de dónde salió.
+
+
+ESTADIO
+-------
+El escenario de la Corrección 1 (piso, plataformas, vallas, luces y túnel) está
+hecho con figuras de Godot, sin archivos externos. Para el estadio se agregan:
+
+assets/kenney_racing_kit/
+  Paquete "Racing Kit" de Kenney (www.kenney.nl/assets/racing-kit)
+  Vallas, banderas y carpas. Licencia: CC0. Licencia en la misma carpeta.
+
+assets/kenney_city_kit_roads/
+  Paquete "City Kit (Roads)" de Kenney (www.kenney.nl/assets/city-kit-roads)
+  Barreras y conos. Licencia: CC0. Licencia en la misma carpeta.
+
+assets/soccer_field/
+  "soccer field" de tiko479 en OpenGameArt
+  (https://opengameart.org/content/soccer-field). Licencia: CC0.
+  Licencia en la misma carpeta.
+
+Si alguno de estos paquetes no se usa al final, se borra su carpeta y su línea.
+
+
+ÍCONO
+-----
+icon.svg
+  Ícono de Godot que trae todo proyecto nuevo. Logo de Godot por Andrea Calabró,
+  licencia CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
+  Si el equipo hace un ícono propio, se cambia esta línea.
+
+
+Gracias a Kenney (www.kenney.nl) por sus paquetes gratuitos.

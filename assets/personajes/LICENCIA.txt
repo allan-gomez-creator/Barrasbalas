@@ -1,0 +1,5 @@
+colormap_arbitro.png
+Textura del árbitro de BarrasBalas (camiseta, pantalón y zapatos en negro).
+Es una copia recoloreada por el equipo de "colormap.png" de Kenney (personaje/Textures/),
+del paquete de personajes de Kenney (www.kenney.nl), licencia Creative Commons Zero (CC0).
+La copia recoloreada también se entrega como CC0.

@@ -37,7 +37,39 @@ func activar():
 	var t = flecha.create_tween().set_loops()
 	t.tween_property(flecha, "modulate:a", 0.25, parpadeo)
 	t.tween_property(flecha, "modulate:a", 1.0, parpadeo)
+	prender_tunel()
 	print("Meta: ¡el túnel está abierto!")
+
+
+# Lunes 23 - Allan: al abrirse, el túnel se ilumina por dentro con luz cálida
+# y el letrero CAMERINOS se pone amarillo, para que se vea a dónde correr.
+func prender_tunel():
+	var tunel = get_node_or_null("../Tunel")
+	if tunel == null:
+		return
+	var luz = OmniLight3D.new()
+	luz.name = "LuzTunel"
+	luz.light_color = Color(1.0, 0.78, 0.45)
+	luz.light_energy = 0.0
+	luz.omni_range = 5.0
+	luz.position = Vector3(56.5, 1.6, -1.2)
+	tunel.add_child(luz)
+	var boca = tunel.get_node_or_null("BocaTunel")
+	var mat = null
+	if boca:
+		mat = StandardMaterial3D.new()
+		mat.albedo_color = Color(0.1, 0.08, 0.06)
+		mat.emission_enabled = true
+		mat.emission = Color(1.0, 0.7, 0.35)
+		mat.emission_energy_multiplier = 0.0
+		boca.material_override = mat
+	var t = create_tween().set_parallel()
+	t.tween_property(luz, "light_energy", 3.0, 1.0)
+	if mat:
+		t.tween_property(mat, "emission_energy_multiplier", 0.6, 1.0)
+	var letrero = tunel.get_node_or_null("Letrero")
+	if letrero:
+		t.tween_property(letrero, "modulate", Color(1, 0.85, 0.2), 1.0)
 
 
 func _al_entrar(cuerpo):

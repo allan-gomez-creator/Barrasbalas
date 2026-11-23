@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://efectos.gd" id="1_efectos"]
+
+[node name="Efectos" type="Node3D" groups=["efectos"]]
+script = ExtResource("1_efectos")

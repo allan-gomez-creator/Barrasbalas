@@ -7,12 +7,18 @@ extends Node
 # false = hay que hacer clic por cada tarjeta.
 @export var mantener = true
 @export var danio = 25
-@export var cadencia = 0.25
+@export var cadencia = 0.25	# solo con "mantener": cada cuánto sale una tarjeta
+# Viernes 20 - Allan: con "mantener" en false, sale un disparo por CADA clic,
+# apenas se hace (aunque se hagan dos clics en el mismo cuadro). Así, entre
+# más rápido clickea el jugador, más rápido dispara. Este mínimo solo frena
+# un autoclicker: 0.05 s = hasta 20 disparos por segundo.
+@export var entre_clics_minimo = 0.05
 @onready var pj = get_parent()
 
 var origen = Vector3.ZERO	# de dónde sale el rayo
 var espera = 0.0
 var hacia = Vector3.ZERO	# hasta dónde llega el rayo si no le da a nada
+var ultimo_clic = -1.0		# en segundos, para el mínimo entre clics
 
 
 func _physics_process(delta):
@@ -21,18 +27,37 @@ func _physics_process(delta):
 	# cuadro (aunque camine hacia el otro lado), para que no titile.
 	if desde == 3 and Input.is_action_pressed(tecla):
 		mirar_al_mouse()
-	var dispara = Input.is_action_pressed(tecla) if mantener else Input.is_action_just_pressed(tecla)
-	if dispara and espera <= 0.001:
+	if mantener and Input.is_action_pressed(tecla) and espera <= 0.001:
 		espera = cadencia
-		var golpe = lanzar_rayo()
-		mostrar_tarjeta(origen, hacia if golpe.is_empty() else golpe.position)
-		if golpe.is_empty():
-			print("no le dio a nada en ", alcance, " m")
-			return
-		var d = snappedf(origen.distance_to(golpe.position), 0.01)
-		print("le dio a ", golpe.collider.name, " a ", d, " m")
-		if golpe.collider.has_method("recibir_golpe"):
-			golpe.collider.recibir_golpe(danio)
+		disparar()
+
+
+# Cada clic llega aquí como un evento, uno por uno: no se pierde ninguno.
+# Es _unhandled_input: si el clic cae en un botón (por ejemplo, el de elegir
+# una ayuda), lo usa el botón y no sale disparo. Lo que en el HUD no deba
+# tapar el disparo (barras, letreros) va con Mouse > Filter = Ignore.
+func _unhandled_input(event):
+	if mantener or event.is_echo() or not event.is_action_pressed(tecla):
+		return
+	var ahora = Time.get_ticks_msec() / 1000.0
+	if ahora - ultimo_clic < entre_clics_minimo:
+		return
+	ultimo_clic = ahora
+	if desde == 3:
+		mirar_al_mouse()
+	disparar()
+
+
+func disparar():
+	var golpe = lanzar_rayo()
+	mostrar_tarjeta(origen, hacia if golpe.is_empty() else golpe.position)
+	if golpe.is_empty():
+		print("no le dio a nada en ", alcance, " m")
+		return
+	var d = snappedf(origen.distance_to(golpe.position), 0.01)
+	print("le dio a ", golpe.collider.name, " a ", d, " m")
+	if golpe.collider.has_method("recibir_golpe"):
+		golpe.collider.recibir_golpe(danio)
 
 
 func lanzar_rayo():
