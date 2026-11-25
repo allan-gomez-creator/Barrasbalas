@@ -4,10 +4,17 @@
 [ext_resource type="Script" uid="uid://dcdxnlw3k6a37" path="res://scripts/esquive.gd" id="2_776hq"]
 [ext_resource type="PackedScene" uid="uid://biu6tppn8ml1q" path="res://personaje/character-male-a.glb" id="2_am4ov"]
 [ext_resource type="Script" uid="uid://db2bph5gjvf8b" path="res://scripts/aerosol.gd" id="3_bvgff"]
+[ext_resource type="Texture2D" path="res://assets/personajes/colormap_arbitro.png" id="4_ropa"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uxa2c"]
 radius = 0.35
 height = 1.75
+
+[sub_resource type="StandardMaterial3D" id="Material_arbitro"]
+resource_name = "colormap_arbitro"
+albedo_texture = ExtResource("4_ropa")
+roughness = 1.0
+texture_filter = 2
 
 [node name="Arbitro" type="CharacterBody3D" unique_id=806082619 groups=["arbitro"]]
 axis_lock_linear_z = true
@@ -15,6 +22,9 @@ script = ExtResource("1_lrneh")
 
 [node name="Modelo" parent="." unique_id=242690682 instance=ExtResource("2_am4ov")]
 transform = Transform3D(-2.6, 0, -2.2729921e-07, 0, 2.6, 0, 2.2729921e-07, 0, -2.6, 0, 0, 0)
+
+[node name="body-mesh" parent="Modelo/character-male-a/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("Material_arbitro")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1953993489]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
@@ -25,3 +35,5 @@ script = ExtResource("2_776hq")
 
 [node name="Aerosol" type="Node" parent="." unique_id=319569638]
 script = ExtResource("3_bvgff")
+
+[editable path="Modelo"]
