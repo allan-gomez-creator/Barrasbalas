@@ -276,6 +276,8 @@ func recibir_golpe(danio_recibido):
 	if vida <= 0:
 		print(name, " expulsado")
 		get_tree().call_group("puntaje", "sumar", puntos_expulsion, global_position)
+		# Miércoles 25 - Allan: humo, estrellas y la tarjeta roja (efectos de Martín).
+		get_tree().call_group("efectos", "expulsion", global_position + Vector3(0, 1.0, 0))
 		remove_from_group("barristas")
 		queue_free()
 

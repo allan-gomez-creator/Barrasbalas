@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://prueba_efectos.gd" id="1_prueba"]
-[ext_resource type="PackedScene" path="res://efectos.tscn" id="2_efectos"]
+[ext_resource type="Script" path="res://scripts/prueba_efectos.gd" id="1_prueba"]
+[ext_resource type="PackedScene" path="res://escenas/efectos.tscn" id="2_efectos"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_piso"]
 size = Vector3(30, 1, 6)

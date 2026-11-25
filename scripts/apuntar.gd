@@ -58,6 +58,8 @@ func disparar():
 	print("le dio a ", golpe.collider.name, " a ", d, " m")
 	if golpe.collider.has_method("recibir_golpe"):
 		golpe.collider.recibir_golpe(danio)
+		# Miércoles 25 - Allan: el destello del golpe (efectos de Martín).
+		get_tree().call_group("efectos", "golpe", golpe.position)
 
 
 func lanzar_rayo():

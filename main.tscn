@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://c4ioqvup7i1hs" path="res://scripts/camara_sigue.gd" id="17_cam"]
 [ext_resource type="Script" uid="uid://cfy6co3th83u6" path="res://scripts/puntaje.gd" id="18_puntaje"]
 [ext_resource type="PackedScene" path="res://escenas/sonidos.tscn" id="19_sonidos"]
+[ext_resource type="PackedScene" path="res://escenas/efectos.tscn" id="20_efectos"]
 
 [sub_resource type="ProceduralSkyMaterial" id="CieloMat"]
 
@@ -120,6 +121,8 @@ duracion_max = 90.0
 script = ExtResource("18_puntaje")
 
 [node name="Sonidos" parent="." unique_id=911027637 instance=ExtResource("19_sonidos")]
+
+[node name="Efectos" parent="." unique_id=1730518842 instance=ExtResource("20_efectos")]
 
 [node name="Cantico" type="AudioStreamPlayer" parent="." unique_id=2101475597]
 stream = ExtResource("14_w48qg")
