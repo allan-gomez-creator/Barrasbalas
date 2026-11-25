@@ -36,7 +36,7 @@ func _ready():
 	add_to_group("barristas")
 	add_to_group("lanzadores")
 	if escena_botella == null:
-		escena_botella = load("res://botella.tscn")
+		escena_botella = load("res://escenas/botella.tscn")
 	if objetivo == null:
 		objetivo = get_tree().get_first_node_in_group("arbitro")
 	preparar_aviso()

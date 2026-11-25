@@ -95,7 +95,7 @@ func _ready():
 	add_to_group("oleadas")   # así el HUD encuentra este nodo
 	# Respaldo: si en el Inspector quedaronaaaaaaa vacíos, se cargan solos.
 	if escena_enemigo == null:
-		push_warning("Oleadas: 'Escena Enemigo' estaba vacío, uso res://tacleador.tscn")
+		push_warning("Oleadas: 'Escena Enemigo' estaba vacío, uso res://escenas/tacleador.tscn")
 		escena_enemigo = load("res://escenas/tacleador.tscn")
 	if escena_agua == null and ResourceLoader.exists("res://escenas/agua.tscn"):
 		push_warning("Oleadas: 'Escena Agua' estaba vacío, uso res://escenas/agua.tscn")
