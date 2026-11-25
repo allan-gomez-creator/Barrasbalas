@@ -1,8 +1,8 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://lanzador.gd" id="1_lanzador"]
+[ext_resource type="Script" uid="uid://c01h22ehbvbro" path="res://scripts/lanzador.gd" id="1_lanzador"]
 [ext_resource type="PackedScene" uid="uid://52giffn4ww16" path="res://personaje/character-male-d.glb" id="2_modelo"]
-[ext_resource type="PackedScene" path="res://botella.tscn" id="3_botella"]
+[ext_resource type="PackedScene" path="res://escenas/botella.tscn" id="3_botella"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lanzador"]
 radius = 0.35

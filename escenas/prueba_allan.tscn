@@ -1,11 +1,12 @@
-[gd_scene format=3 uid="uid://bfcjano5lfim"]
+[gd_scene format=3 uid="uid://b8lv5w6syjecc"]
 
-[ext_resource type="Script" uid="uid://bj0372xnq02wk" path="res://personaje.gd" id="1_toaxk"]
-[ext_resource type="PackedScene" uid="uid://biu6tppn8ml1q" path="res://personaje/character-male-a.glb" id="2_e2xqd"]
-[ext_resource type="Script" uid="uid://dgkhs3olsfacw" path="res://apuntar.gd" id="3_4bgqf"]
-[ext_resource type="PackedScene" uid="uid://c5wlgaqocvngx" path="res://tacleador.tscn" id="4_8nv3w"]
-[ext_resource type="Script" uid="uid://bx8k5fve83sos" path="res://luz_jugador.gd" id="4_e2xqd"]
-[ext_resource type="Script" uid="uid://c2anmpos86lhu" path="res://diana.gd" id="5_ef3c1"]
+[ext_resource type="Script" uid="uid://bj0372xnq02wk" path="res://scripts/personaje.gd" id="1_60ohc"]
+[ext_resource type="PackedScene" uid="uid://biu6tppn8ml1q" path="res://personaje/character-male-a.glb" id="2_o0ctb"]
+[ext_resource type="Script" uid="uid://dgkhs3olsfacw" path="res://scripts/apuntar.gd" id="3_ofcfx"]
+[ext_resource type="Script" uid="uid://bx8k5fve83sos" path="res://scripts/luz_jugador.gd" id="4_btqin"]
+[ext_resource type="Script" uid="uid://dd86cprxev7uy" path="res://scripts/ruido.gd" id="5_60ohc"]
+[ext_resource type="Script" uid="uid://c2anmpos86lhu" path="res://scripts/diana.gd" id="6_oux4i"]
+[ext_resource type="PackedScene" uid="uid://xqd8urcy2dqm" path="res://escenas/vigia.tscn" id="7_o0ctb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="CieloMat"]
 
@@ -106,18 +107,21 @@ projection = 1
 size = 10.0
 
 [node name="Personaje" type="CharacterBody3D" parent="." unique_id=2138693632]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
 axis_lock_linear_z = true
-script = ExtResource("1_toaxk")
+script = ExtResource("1_60ohc")
+prueba = 4
+accion_prueba = "hacer_ruido"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Personaje" unique_id=1605844198]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
 shape = SubResource("Capsula")
 
-[node name="Modelo" parent="Personaje" unique_id=590552023 instance=ExtResource("2_e2xqd")]
+[node name="Modelo" parent="Personaje" unique_id=590552023 instance=ExtResource("2_o0ctb")]
 transform = Transform3D(-2.6, 0, 0, 0, 2.6, 0, 0, 0, -2.6, 0, 0, 0)
 
 [node name="Apuntar" type="Node" parent="Personaje" unique_id=1944176471]
-script = ExtResource("3_4bgqf")
+script = ExtResource("3_ofcfx")
 alcance = 9.0
 danio = 1
 cadencia = 0.167
@@ -126,16 +130,15 @@ cadencia = 0.167
 light_color = Color(1, 0.8509804, 0.3019608, 1)
 light_energy = 2.5
 omni_attenuation = 2.0
-script = ExtResource("4_e2xqd")
+script = ExtResource("4_btqin")
 
-[node name="Tacleador" parent="." unique_id=398855998 node_paths=PackedStringArray("objetivo") instance=ExtResource("4_8nv3w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.6, 0)
-axis_lock_linear_z = true
-objetivo = NodePath("../Personaje")
+[node name="Ruido" type="Node" parent="Personaje" unique_id=2037822652]
+script = ExtResource("5_60ohc")
+radio = 7.0
 
 [node name="Caja1" type="StaticBody3D" parent="." unique_id=158947071]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.5, -4)
-script = ExtResource("5_ef3c1")
+script = ExtResource("6_oux4i")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Caja1" unique_id=989427044]
 mesh = SubResource("BoxMesh_xrivr")
@@ -151,3 +154,11 @@ mesh = SubResource("BoxMesh_13qdw")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.5, 0)
 mesh = SubResource("SphereMesh_xrivr")
 surface_material_override/0 = SubResource("StandardMaterial3D_e2xqd")
+
+[node name="VigiaA" parent="." unique_id=1628014569 instance=ExtResource("7_o0ctb")]
+
+[node name="VigiaC" parent="." unique_id=1065829531 instance=ExtResource("7_o0ctb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -0.8)
+
+[node name="VigiaB" parent="." unique_id=1463665903 instance=ExtResource("7_o0ctb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 0)

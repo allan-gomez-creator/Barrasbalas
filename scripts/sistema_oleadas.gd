@@ -93,17 +93,17 @@ var historial = []     # un resumen por oleada
 
 func _ready():
 	add_to_group("oleadas")   # así el HUD encuentra este nodo
-	# Respaldo: si en el Inspector quedaron vacíos, se cargan solos.
+	# Respaldo: si en el Inspector quedaronaaaaaaa vacíos, se cargan solos.
 	if escena_enemigo == null:
 		push_warning("Oleadas: 'Escena Enemigo' estaba vacío, uso res://tacleador.tscn")
-		escena_enemigo = load("res://tacleador.tscn")
-	if escena_agua == null and ResourceLoader.exists("res://agua.tscn"):
-		push_warning("Oleadas: 'Escena Agua' estaba vacío, uso res://agua.tscn")
-		escena_agua = load("res://agua.tscn")
-	if escena_victoria == null and ResourceLoader.exists("res://victoria.tscn"):
-		escena_victoria = load("res://victoria.tscn")
-	if escena_lanzador == null and ResourceLoader.exists("res://lanzador.tscn"):
-		escena_lanzador = load("res://lanzador.tscn")
+		escena_enemigo = load("res://escenas/tacleador.tscn")
+	if escena_agua == null and ResourceLoader.exists("res://escenas/agua.tscn"):
+		push_warning("Oleadas: 'Escena Agua' estaba vacío, uso res://escenas/agua.tscn")
+		escena_agua = load("res://escenas/agua.tscn")
+	if escena_victoria == null and ResourceLoader.exists("res://escenas/victoria.tscn"):
+		escena_victoria = load("res://escenas/victoria.tscn")
+	if escena_lanzador == null and ResourceLoader.exists("res://escenas/lanzador.tscn"):
+		escena_lanzador = load("res://escenas/lanzador.tscn")
 	arbitro = get_tree().get_first_node_in_group("arbitro")
 	if arbitro == null:
 		push_warning("Oleadas: no hay ningún nodo en el grupo 'arbitro'; los barristas no van a tener a quién perseguir")

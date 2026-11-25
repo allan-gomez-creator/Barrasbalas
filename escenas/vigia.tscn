@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://xqd8urcy2dqm"]
 
-[ext_resource type="Script" uid="uid://b2gnuasx5lqig" path="res://vigia.gd" id="1_2ven1"]
+[ext_resource type="Script" uid="uid://b2gnuasx5lqig" path="res://scripts/vigia.gd" id="1_2ven1"]
 [ext_resource type="PackedScene" uid="uid://52giffn4ww16" path="res://personaje/character-male-d.glb" id="1_q0nh4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xrivr"]

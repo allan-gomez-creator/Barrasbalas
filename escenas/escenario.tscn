@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://wp5cv5ui1c7f"]
 
-[ext_resource type="Script" path="res://publico.gd" id="1_pub"]
-[ext_resource type="PackedScene" path="res://personaje/character-female-e.glb" id="3_fe"]
-[ext_resource type="Script" path="res://barrera.gd" id="4_barrera"]
-[ext_resource type="Script" path="res://apariciones_moviles.gd" id="5_apar"]
-[ext_resource type="Script" path="res://meta.gd" id="6_meta"]
-[ext_resource type="Script" path="res://luces_estadio.gd" id="7_luces"]
-[ext_resource type="Script" path="res://zonas.gd" id="8_zonas"]
-[ext_resource type="Script" path="res://gradas.gd" id="9_gradas"]
+[ext_resource type="Script" uid="uid://d015scjwskg6m" path="res://scripts/publico.gd" id="1_pub"]
+[ext_resource type="PackedScene" uid="uid://dtcyho4e2mmyw" path="res://personaje/character-female-e.glb" id="3_fe"]
+[ext_resource type="Script" uid="uid://b5q5lrwuwr4m8" path="res://scripts/barrera.gd" id="4_barrera"]
+[ext_resource type="Script" uid="uid://ghi40vpkh4a4" path="res://scripts/apariciones_moviles.gd" id="5_apar"]
+[ext_resource type="Script" uid="uid://dqk2bpe5og7pd" path="res://scripts/meta.gd" id="6_meta"]
+[ext_resource type="Script" uid="uid://ca4oxo0uio3nj" path="res://scripts/luces_estadio.gd" id="7_luces"]
+[ext_resource type="Script" uid="uid://7edba2v7mlsv" path="res://scripts/zonas.gd" id="8_zonas"]
+[ext_resource type="Script" uid="uid://bcke5yemem1vk" path="res://scripts/gradas.gd" id="9_gradas"]
 
 [sub_resource type="StandardMaterial3D" id="MatCancha"]
 albedo_color = Color(0.3, 0.48, 0.32, 1)

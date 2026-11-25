@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://dsxg2p1f6vykg"]
 
-[ext_resource type="Script" uid="uid://cfy6co3th83u6" path="res://puntaje.gd" id="1_100up"]
-[ext_resource type="Script" uid="uid://c1xtfml70clwf" path="res://sistema_sol.gd" id="3_k76gx"]
-[ext_resource type="PackedScene" uid="uid://cksl1ukcmch7p" path="res://arbitro.tscn" id="3_pi376"]
-[ext_resource type="PackedScene" uid="uid://cjapsr6p0y63n" path="res://hud.tscn" id="4_4hjmf"]
-[ext_resource type="Script" uid="uid://c5y3m4ljpv2bu" path="res://ciclo_dia.gd" id="4_hql4h"]
+[ext_resource type="Script" uid="uid://cfy6co3th83u6" path="res://scripts/puntaje.gd" id="1_100up"]
+[ext_resource type="Script" uid="uid://c1xtfml70clwf" path="res://scripts/sistema_sol.gd" id="3_k76gx"]
+[ext_resource type="PackedScene" uid="uid://cksl1ukcmch7p" path="res://escenas/arbitro.tscn" id="3_pi376"]
+[ext_resource type="PackedScene" uid="uid://cjapsr6p0y63n" path="res://escenas/hud.tscn" id="4_4hjmf"]
+[ext_resource type="Script" uid="uid://c5y3m4ljpv2bu" path="res://scripts/ciclo_dia.gd" id="4_hql4h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qk3cq"]
 
