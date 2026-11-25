@@ -1,0 +1,14 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://b45l55s7477jy" path="res://scripts/sistema_oleadas.gd" id="1_oleadas"]
+[ext_resource type="PackedScene" uid="uid://c5wlgaqocvngx" path="res://escenas/tacleador.tscn" id="2_tacleador"]
+[ext_resource type="PackedScene" path="res://escenas/agua.tscn" id="3_agua"]
+[ext_resource type="PackedScene" path="res://escenas/victoria.tscn" id="4_victoria"]
+[ext_resource type="PackedScene" path="res://escenas/lanzador.tscn" id="5_lanzador"]
+
+[node name="Oleadas" type="Node"]
+script = ExtResource("1_oleadas")
+escena_enemigo = ExtResource("2_tacleador")
+escena_agua = ExtResource("3_agua")
+escena_victoria = ExtResource("4_victoria")
+escena_lanzador = ExtResource("5_lanzador")

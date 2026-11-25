@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c5wlgaqocvngx"]
 
 [ext_resource type="PackedScene" uid="uid://52giffn4ww16" path="res://personaje/character-male-d.glb" id="1_bvboj"]
-[ext_resource type="Script" uid="uid://dduywsucxiba6" path="res://tacleador.gd" id="1_tpvfa"]
+[ext_resource type="Script" uid="uid://dduywsucxiba6" path="res://scripts/tacleador.gd" id="1_tpvfa"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xrivr"]
 radius = 0.35

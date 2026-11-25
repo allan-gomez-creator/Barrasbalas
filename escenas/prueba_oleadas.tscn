@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://b0hlestmigfxa"]
 
-[ext_resource type="Script" uid="uid://lhdh0du1xfog" path="res://prueba_oleadas.gd" id="1_prueba"]
-[ext_resource type="PackedScene" path="res://oleadas.tscn" id="2_oleadas"]
-[ext_resource type="PackedScene" uid="uid://cksl1ukcmch7p" path="res://arbitro.tscn" id="3_arbitro"]
-[ext_resource type="Script" uid="uid://dgkhs3olsfacw" path="res://apuntar.gd" id="4_apuntar"]
-[ext_resource type="PackedScene" path="res://lanzador.tscn" id="5_lanzador"]
+[ext_resource type="Script" uid="uid://lhdh0du1xfog" path="res://scripts/prueba_oleadas.gd" id="1_prueba"]
+[ext_resource type="PackedScene" path="res://escenas/oleadas.tscn" id="2_oleadas"]
+[ext_resource type="PackedScene" uid="uid://cksl1ukcmch7p" path="res://escenas/arbitro.tscn" id="3_arbitro"]
+[ext_resource type="Script" uid="uid://dgkhs3olsfacw" path="res://scripts/apuntar.gd" id="4_apuntar"]
+[ext_resource type="PackedScene" path="res://escenas/lanzador.tscn" id="5_lanzador"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_piso"]
 size = Vector3(30, 1, 6)

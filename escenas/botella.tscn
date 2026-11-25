@@ -1,6 +1,6 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://botella.gd" id="1_botella"]
+[ext_resource type="Script" uid="uid://dv3lupyd36v" path="res://scripts/botella.gd" id="1_botella"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_botella"]
 radius = 0.3

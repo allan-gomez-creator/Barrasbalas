@@ -1,6 +1,6 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://victoria.gd" id="1_victoria"]
+[ext_resource type="Script" uid="uid://bpdhdgwnvv1rh" path="res://scripts/victoria.gd" id="1_victoria"]
 
 [node name="Victoria" type="CanvasLayer"]
 layer = 20

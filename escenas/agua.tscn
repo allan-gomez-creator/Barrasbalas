@@ -1,6 +1,6 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://agua.gd" id="1_agua"]
+[ext_resource type="Script" uid="uid://s0rnjq0kwoal" path="res://scripts/agua.gd" id="1_agua"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_agua"]
 height = 0.8
