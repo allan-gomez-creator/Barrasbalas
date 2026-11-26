@@ -11,6 +11,9 @@ extends CanvasLayer
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS   # para que funcione con el juego en pausa
 	$Fondo/Caja/OtraVez.pressed.connect(reiniciar)
+	# Corrección 2: botón para volver al menú de inicio.
+	if has_node("Fondo/Caja/Menu"):
+		$Fondo/Caja/Menu.pressed.connect(ir_al_menu)
 
 
 func mostrar(energia, tiempo_texto, oleadas):
@@ -50,3 +53,10 @@ func reiniciar():
 	get_tree().paused = false
 	queue_free()   # la pantalla vive en la raíz, fuera de la escena: hay que quitarla a mano
 	get_tree().reload_current_scene()
+
+
+# Corrección 2: vuelve al menú de inicio (escenas/menu.tscn).
+func ir_al_menu():
+	get_tree().paused = false
+	queue_free()   # igual que al reiniciar: la pantalla vive fuera de la escena
+	get_tree().change_scene_to_file("res://escenas/menu.tscn")
