@@ -45,6 +45,7 @@ func conectar():
 		mostrar_puntos(puntaje.total, puntaje.combo)
 
 func mostrar_energia(valor):
+	$EnergiaBarra.max_value = arbitro.energia_max
 	$EnergiaBarra.value = valor
 	$Energia.text = "Energía %d / %d" % [valor, arbitro.energia_max]
 
