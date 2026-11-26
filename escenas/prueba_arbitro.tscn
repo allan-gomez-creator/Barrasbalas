@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cksl1ukcmch7p" path="res://escenas/arbitro.tscn" id="3_pi376"]
 [ext_resource type="PackedScene" uid="uid://cjapsr6p0y63n" path="res://escenas/hud.tscn" id="4_4hjmf"]
 [ext_resource type="Script" uid="uid://c5y3m4ljpv2bu" path="res://scripts/ciclo_dia.gd" id="4_hql4h"]
+[ext_resource type="PackedScene" uid="uid://d0fnaw143q5gn" path="res://escenas/ayudas.tscn" id="6_1fm34"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qk3cq"]
 
@@ -112,3 +113,5 @@ script = ExtResource("4_hql4h")
 
 [node name="Puntaje" type="Node" parent="." unique_id=1554582908]
 script = ExtResource("1_100up")
+
+[node name="Ayudas" parent="." unique_id=1577628541 instance=ExtResource("6_1fm34")]
