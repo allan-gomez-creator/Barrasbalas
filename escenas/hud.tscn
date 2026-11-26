@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://cjapsr6p0y63n"]
 
 [ext_resource type="Script" uid="uid://cog857osrpcp7" path="res://scripts/hud.gd" id="1_37p78"]
-[ext_resource type="Theme" path="res://escenas/tema.tres" id="2_tema"]
-[ext_resource type="Script" path="res://scripts/hud_botones.gd" id="3_botones"]
+[ext_resource type="Theme" uid="uid://dnvb7cgkxxn1y" path="res://escenas/tema.tres" id="2_tema"]
+[ext_resource type="Script" uid="uid://bjb5rt8w6d451" path="res://scripts/hud_botones.gd" id="3_botones"]
 
 [node name="HUD" type="CanvasLayer" unique_id=337991057]
 script = ExtResource("1_37p78")
 
-[node name="MarcoEstado" type="Panel" parent="."]
+[node name="MarcoEstado" type="Panel" parent="." unique_id=235223106]
 offset_left = 12.0
 offset_top = 10.0
 offset_right = 262.0
@@ -20,7 +20,6 @@ offset_left = 28.0
 offset_top = 16.0
 offset_right = 248.0
 offset_bottom = 42.0
-mouse_filter = 2
 theme = ExtResource("2_tema")
 text = "Energía 5 / 5"
 
@@ -40,7 +39,6 @@ offset_left = 28.0
 offset_top = 70.0
 offset_right = 248.0
 offset_bottom = 96.0
-mouse_filter = 2
 theme = ExtResource("2_tema")
 theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
 text = "Oleada 1"
@@ -50,12 +48,11 @@ offset_left = 28.0
 offset_top = 98.0
 offset_right = 248.0
 offset_bottom = 124.0
-mouse_filter = 2
 theme = ExtResource("2_tema")
 theme_override_colors/font_color = Color(0.6, 0.85, 1, 1)
 text = "Aerosol: 2"
 
-[node name="MarcoPuntos" type="Panel" parent="."]
+[node name="MarcoPuntos" type="Panel" parent="." unique_id=1588206582]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -76,7 +73,6 @@ offset_top = 14.0
 offset_right = 220.0
 offset_bottom = 52.0
 grow_horizontal = 2
-mouse_filter = 2
 theme = ExtResource("2_tema")
 theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
 theme_override_constants/outline_size = 10
@@ -84,7 +80,7 @@ theme_override_font_sizes/font_size = 32
 text = "Tiempo muerto: 10"
 horizontal_alignment = 1
 
-[node name="FondoPausa" type="ColorRect" parent="."]
+[node name="FondoPausa" type="ColorRect" parent="." unique_id=1040230623]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -112,7 +108,7 @@ theme_override_font_sizes/font_size = 64
 text = "PAUSA"
 horizontal_alignment = 1
 
-[node name="Opciones" type="VBoxContainer" parent="Pausa"]
+[node name="Opciones" type="VBoxContainer" parent="Pausa" unique_id=1421251980]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -124,21 +120,22 @@ offset_top = 20.0
 offset_right = 130.0
 offset_bottom = 200.0
 grow_horizontal = 2
+grow_vertical = 0
 theme_override_constants/separation = 14
 
-[node name="Seguir" type="Button" parent="Pausa/Opciones"]
+[node name="Seguir" type="Button" parent="Pausa/Opciones" unique_id=1001731792]
 custom_minimum_size = Vector2(260, 48)
 layout_mode = 2
 focus_mode = 0
 text = "Seguir (Esc)"
 
-[node name="Reiniciar" type="Button" parent="Pausa/Opciones"]
+[node name="Reiniciar" type="Button" parent="Pausa/Opciones" unique_id=1198223137]
 custom_minimum_size = Vector2(260, 48)
 layout_mode = 2
 focus_mode = 0
 text = "Reiniciar"
 
-[node name="Menu" type="Button" parent="Pausa/Opciones"]
+[node name="Menu" type="Button" parent="Pausa/Opciones" unique_id=184556504]
 custom_minimum_size = Vector2(260, 48)
 layout_mode = 2
 focus_mode = 0
@@ -189,7 +186,7 @@ grow_vertical = 2
 focus_mode = 0
 text = "Reiniciar (R)"
 
-[node name="Menu" type="Button" parent="Derrota"]
+[node name="Menu" type="Button" parent="Derrota" unique_id=700291033]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -214,7 +211,6 @@ offset_top = 16.0
 offset_right = -26.0
 offset_bottom = 46.0
 grow_horizontal = 0
-mouse_filter = 2
 theme = ExtResource("2_tema")
 theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
 theme_override_font_sizes/font_size = 28
@@ -230,7 +226,6 @@ offset_top = 48.0
 offset_right = -26.0
 offset_bottom = 74.0
 grow_horizontal = 0
-mouse_filter = 2
 theme = ExtResource("2_tema")
 text = "Combo: x1.0"
 horizontal_alignment = 2
@@ -247,7 +242,6 @@ offset_right = 300.0
 offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 0
-mouse_filter = 2
 theme = ExtResource("2_tema")
 theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
 theme_override_constants/outline_size = 10
@@ -256,7 +250,7 @@ text = "Puntos: 0
 Record: 0"
 horizontal_alignment = 1
 
-[node name="BotonPausa" type="Button" parent="."]
+[node name="BotonPausa" type="Button" parent="." unique_id=1151315813]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -273,5 +267,5 @@ theme = ExtResource("2_tema")
 theme_override_font_sizes/font_size = 18
 text = "Pausa (Esc)"
 
-[node name="Botones" type="Node" parent="."]
+[node name="Botones" type="Node" parent="." unique_id=1043798588]
 script = ExtResource("3_botones")

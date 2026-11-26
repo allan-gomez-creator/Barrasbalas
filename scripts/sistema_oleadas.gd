@@ -59,6 +59,12 @@ signal victoria
 @export var distancia_puesto = 16.0  # m: solo se usan los puestos a esta distancia o menos...
 @export var distancia_puesto_min = 4.0  # ...y a esta o más, para que no aparezca encima del árbitro
 
+@export_group("Lechuza")
+@export var escena_lechuza: PackedScene   # aquí se arrastra lechuza.tscn
+@export var lechuza_desde = 4             # oleada desde la que sale la lechuza
+@export var espera_lechuza = 6.0          # s después de empezar la oleada
+@export var lechuza_lejos = 12.0          # m: sale por un lado, fuera de la pantalla
+
 @export_group("Tiempo muerto")
 @export var duracion_descanso = 10.0
 @export var agua_cerca = 2.0         # m: el agua sale a un lado del árbitro, entre esta distancia...
@@ -81,6 +87,7 @@ var quedan_antes = -1
 var grupos_salidos = 0
 var ocupados = {}      # puesto de lanzador → el lanzador que está ahí
 var avise_lejos = false
+var lechuza_salio = false   # una lechuza por oleada
 
 # Para el balance
 var arbitro = null
@@ -104,6 +111,8 @@ func _ready():
 		escena_victoria = load("res://escenas/victoria.tscn")
 	if escena_lanzador == null and ResourceLoader.exists("res://escenas/lanzador.tscn"):
 		escena_lanzador = load("res://escenas/lanzador.tscn")
+	if escena_lechuza == null and ResourceLoader.exists("res://escenas/lechuza.tscn"):
+		escena_lechuza = load("res://escenas/lechuza.tscn")
 	arbitro = get_tree().get_first_node_in_group("arbitro")
 	if arbitro == null:
 		push_warning("Oleadas: no hay ningún nodo en el grupo 'arbitro'; los barristas no van a tener a quién perseguir")
@@ -130,6 +139,7 @@ func empezar_oleada():
 	reloj_revisar = 0.0
 	quedan_antes = -1
 	golpes = 0
+	lechuza_salio = false
 	energia_inicio = energia_actual()
 	energia_previa = energia_inicio
 	if is_instance_valid(agua_actual):
@@ -162,7 +172,10 @@ func _process(delta):
 			reloj_grupo = 0.0
 		# Si no salió nadie (ya hay 11 vivos), el reloj sigue cumplido
 		# y el grupo sale apenas haya espacio.
-
+		# Desde la oleada 4, a los 6 s sale la lechuza (una a la vez).
+	if not lechuza_salio and oleada >= lechuza_desde and tiempo >= espera_lechuza:
+		sacar_lechuza()
+	
 	reloj_revisar += delta
 	if reloj_revisar >= 1.0:
 		reloj_revisar = 0.0
@@ -268,7 +281,23 @@ func sacar_lanzador(numero):
 	print(lanzador.name, " en el puesto ", puesto.name, " (a ", snappedf(absf(puesto.global_position.x - x), 0.1), " m)")
 	return lanzador
 
-
+# Corrección 2 - Juan Manuel: la lechuza del Metropolitano.
+# Sale por un lado del árbitro, a 12 m (fuera de la pantalla) y a 4 m de alto,
+# y llega volando. Si todavía hay una en el aire (grupo "aereos"), no sale otra.
+# Cuenta como barrista: la oleada no termina hasta que se va (o a los 75 s).
+func sacar_lechuza():
+	lechuza_salio = true
+	if escena_lechuza == null or arbitro == null:
+		return
+	if not get_tree().get_nodes_in_group("aereos").is_empty():
+		return
+	var lechuza = escena_lechuza.instantiate()
+	lechuza.name = "Lechuza_%d" % oleada
+	lechuza.objetivo = arbitro
+	add_child(lechuza)
+	var lado = 1.0 if randf() < 0.5 else -1.0
+	lechuza.global_position = Vector3(arbitro.global_position.x + lado * lechuza_lejos, lechuza.altura, 0)
+	print(lechuza.name, " sale por la ", "derecha" if lado > 0 else "izquierda")
 # Avance 5 (integración): que el puesto no quede detrás de una barrera de
 # policía cerrada, donde el árbitro no puede llegar a expulsarlo.
 # Le pregunta al nodo "zona_juego" (apariciones_moviles.gd de Allan) entre qué x
