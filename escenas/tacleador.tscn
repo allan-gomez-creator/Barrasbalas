@@ -1,7 +1,14 @@
 [gd_scene format=3 uid="uid://c5wlgaqocvngx"]
 
-[ext_resource type="PackedScene" uid="uid://52giffn4ww16" path="res://personaje/character-male-d.glb" id="1_bvboj"]
+[ext_resource type="PackedScene" uid="uid://biu6tppn8ml1q" path="res://personaje/character-male-a.glb" id="1_bvboj"]
+[ext_resource type="Texture2D" path="res://assets/personajes/colormap_tacleador.png" id="9_ropa"]
 [ext_resource type="Script" uid="uid://dduywsucxiba6" path="res://scripts/tacleador.gd" id="1_tpvfa"]
+
+[sub_resource type="StandardMaterial3D" id="Material_tacleador"]
+resource_name = "colormap_tacleador"
+albedo_texture = ExtResource("9_ropa")
+roughness = 1.0
+texture_filter = 2
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xrivr"]
 radius = 0.35
@@ -17,3 +24,8 @@ shape = SubResource("CapsuleShape3D_xrivr")
 
 [node name="Modelo" parent="." unique_id=1697388591 instance=ExtResource("1_bvboj")]
 transform = Transform3D(-2.6, 0, -2.2729921e-07, 0, 2.6, 0, 2.2729921e-07, 0, -2.6, 0, 0, 0)
+
+[node name="body-mesh" parent="Modelo/character-male-a/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("Material_tacleador")
+
+[editable path="Modelo"]

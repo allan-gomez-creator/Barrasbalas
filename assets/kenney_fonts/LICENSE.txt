@@ -1,0 +1,11 @@
+Kenney Fonts — by Kenney (www.kenney.nl)
+https://kenney.nl/assets/kenney-fonts
+
+Archivos usados en BarrasBalas:
+  kenney_mini_square.ttf    (original: "Kenney Mini Square.ttf")    -> textos, HUD y botones
+  kenney_blocks.ttf         (original: "Kenney Blocks.ttf")         -> título del menú
+
+License: Creative Commons Zero (CC0)
+http://creativecommons.org/publicdomain/zero/1.0/
+You may use these fonts in personal and commercial projects.
+Credit (Kenney or www.kenney.nl) would be nice but is not mandatory.

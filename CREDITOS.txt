@@ -1,7 +1,7 @@
 BARRASBALAS — CRÉDITOS Y LICENCIAS
 ==================================
 
-Juego hecho por: Allan Gómez, Juan Manuel y Martín Armando Bonilla.
+Juego hecho por: Allan Gómez, Juan Manuel Benítez Skolik y Martín Bonilla Cuéllar.
 Hecho con Godot Engine 4 (www.godotengine.org), licencia MIT.
 
 Regla del equipo: solo usamos recursos con licencia CC0 (dominio público) o hechos
@@ -21,6 +21,17 @@ assets/personajes/colormap_arbitro.png
   Textura del árbitro (ropa negra). La hizo el equipo recoloreando el colormap.png
   de Kenney de arriba. CC0, igual que el original.
   Licencia en: assets/personajes/LICENCIA.txt
+
+assets/personajes/colormap_tacleador.png  (camiseta roja, jean, tenis blancos)
+assets/personajes/colormap_lanzador.png   (camiseta verde, pantalón blanco)
+  Camisetas de la barra. Las hizo el equipo recoloreando el mismo colormap.png
+  de Kenney. CC0. El tacleador y el lanzador usan el modelo character-male-a
+  (camiseta y jean) en vez del de traje.
+
+escenas/lechuza_modelo.tscn
+  La lechuza del Metropolitano (cara de corazón, pecho blanco y espalda dorada).
+  La hizo el equipo con figuras de Godot (esferas y cilindros), sin archivos
+  externos. Trae 3 animaciones: volar, picada y asustada. CC0.
 
 
 EFECTOS VISUALES
@@ -45,12 +56,24 @@ sonidos/pito.wav
   Hecho por el equipo, generado por código. No viene de ningún paquete.
 
 
+LETRAS (FUENTES)
+----------------
+assets/kenney_fonts/kenney_mini_square.ttf  -> HUD, botones y textos
+assets/kenney_fonts/kenney_blocks.ttf       -> título del menú
+  Paquete "Kenney Fonts" de Kenney (www.kenney.nl/assets/kenney-fonts)
+  Licencia: Creative Commons Zero (CC0)
+  Licencia en: assets/kenney_fonts/LICENSE.txt
+  Se usan en escenas/tema.tres (el estilo de botones, barras y letreros).
+
+
 MÚSICA
 ------
 cantico.mp3
-  ⚠ PENDIENTE: este cántico se sacó de YouTube y NO tiene licencia libre.
-  Se reemplaza el jueves 26 por uno CC0 o grabado por el equipo,
-  y aquí se anota de dónde salió.
+  Cántico de la barra hecho por el equipo (Corrección 2, jueves 26): bombo,
+  redoblante, platillos, trompeta y la tribuna cantando "oh", con una melodía
+  propia. Se generó por código, sin grabaciones ni muestras de nadie.
+  Dura 29 s y se repite sin corte. Lo entregamos como CC0.
+  (Reemplaza al cántico de antes, que venía de YouTube y no tenía licencia libre.)
 
 
 ESTADIO

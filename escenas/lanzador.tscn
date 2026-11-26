@@ -1,8 +1,15 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" uid="uid://c01h22ehbvbro" path="res://scripts/lanzador.gd" id="1_lanzador"]
-[ext_resource type="PackedScene" uid="uid://52giffn4ww16" path="res://personaje/character-male-d.glb" id="2_modelo"]
+[ext_resource type="PackedScene" uid="uid://biu6tppn8ml1q" path="res://personaje/character-male-a.glb" id="2_modelo"]
+[ext_resource type="Texture2D" path="res://assets/personajes/colormap_lanzador.png" id="9_ropa"]
 [ext_resource type="PackedScene" path="res://escenas/botella.tscn" id="3_botella"]
+
+[sub_resource type="StandardMaterial3D" id="Material_lanzador"]
+resource_name = "colormap_lanzador"
+albedo_texture = ExtResource("9_ropa")
+roughness = 1.0
+texture_filter = 2
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lanzador"]
 radius = 0.35
@@ -19,3 +26,8 @@ shape = SubResource("CapsuleShape3D_lanzador")
 
 [node name="Modelo" parent="." instance=ExtResource("2_modelo")]
 transform = Transform3D(-2.6, 0, -2.2729921e-07, 0, 2.6, 0, 2.2729921e-07, 0, -2.6, 0, 0, 0)
+
+[node name="body-mesh" parent="Modelo/character-male-a/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("Material_lanzador")
+
+[editable path="Modelo"]
