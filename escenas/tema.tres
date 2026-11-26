@@ -1,13 +1,15 @@
-[gd_resource type="Theme" format=3]
+[gd_resource type="Theme" format=3 uid="uid://dnvb7cgkxxn1y"]
 
-[ext_resource type="FontFile" path="res://assets/kenney_fonts/kenney_mini_square.ttf" id="1_fuente"]
+[ext_resource type="FontFile" uid="uid://biwkwwj5t23i4" path="res://assets/kenney_fonts/kenney_mini_square.ttf" id="1_fuente"]
 
-[sub_resource type="StyleBoxFlat" id="Boton_normal"]
+[sub_resource type="StyleBoxEmpty" id="Sin_foco"]
+
+[sub_resource type="StyleBoxFlat" id="Boton_encima"]
 content_margin_left = 18.0
 content_margin_top = 8.0
 content_margin_right = 18.0
 content_margin_bottom = 8.0
-bg_color = Color(0.09, 0.11, 0.19, 0.92)
+bg_color = Color(0.78, 0.12, 0.16, 0.95)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -18,12 +20,12 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id="Boton_encima"]
+[sub_resource type="StyleBoxFlat" id="Boton_normal"]
 content_margin_left = 18.0
 content_margin_top = 8.0
 content_margin_right = 18.0
 content_margin_bottom = 8.0
-bg_color = Color(0.78, 0.12, 0.16, 0.95)
+bg_color = Color(0.09, 0.11, 0.19, 0.92)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -50,7 +52,21 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxEmpty" id="Sin_foco"]
+[sub_resource type="StyleBoxFlat" id="Marco"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.05, 0.06, 0.11, 0.72)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.18)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxFlat" id="Barra_fondo"]
 bg_color = Color(0.05, 0.06, 0.1, 0.85)
@@ -71,29 +87,13 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[sub_resource type="StyleBoxFlat" id="Marco"]
-content_margin_left = 16.0
-content_margin_top = 12.0
-content_margin_right = 16.0
-content_margin_bottom = 12.0
-bg_color = Color(0.05, 0.06, 0.11, 0.72)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 0.18)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
 [resource]
 default_font = ExtResource("1_fuente")
 default_font_size = 22
 Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
 Button/colors/font_hover_color = Color(1, 0.9, 0.45, 1)
 Button/colors/font_pressed_color = Color(1, 0.9, 0.45, 1)
-Button/colors/font_focus_color = Color(1, 1, 1, 1)
 Button/font_sizes/font_size = 22
 Button/styles/focus = SubResource("Sin_foco")
 Button/styles/hover = SubResource("Boton_encima")
