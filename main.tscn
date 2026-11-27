@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://cksl1ukcmch7p" path="res://escenas/arbitro.tscn" id="2_lquwl"]
 [ext_resource type="Script" uid="uid://dgkhs3olsfacw" path="res://scripts/apuntar.gd" id="3_1bvp3"]
 [ext_resource type="PackedScene" path="res://escenas/oleadas.tscn" id="5_7mycd"]
-[ext_resource type="Script" uid="uid://llty1vxsmol8" path="res://scripts/interactuar.gd" id="7_inter"]
 [ext_resource type="PackedScene" uid="uid://wp5cv5ui1c7f" path="res://escenas/escenario.tscn" id="8_5vw27"]
 [ext_resource type="PackedScene" uid="uid://cjapsr6p0y63n" path="res://escenas/hud.tscn" id="9_hud"]
 [ext_resource type="Script" uid="uid://c1xtfml70clwf" path="res://scripts/sistema_sol.gd" id="10_sol"]
@@ -13,7 +12,6 @@
 [ext_resource type="Script" uid="uid://bx8k5fve83sos" path="res://scripts/luz_jugador.gd" id="14_luzjug"]
 [ext_resource type="AudioStream" uid="uid://dsf752dxpm3dc" path="res://cantico.mp3" id="14_w48qg"]
 [ext_resource type="Script" uid="uid://cheajayngkfaa" path="res://scripts/rodar.gd" id="15_rodar"]
-[ext_resource type="Script" uid="uid://dd86cprxev7uy" path="res://scripts/ruido.gd" id="16_ruido"]
 [ext_resource type="Script" uid="uid://c4ioqvup7i1hs" path="res://scripts/camara_sigue.gd" id="17_cam"]
 [ext_resource type="Script" uid="uid://cfy6co3th83u6" path="res://scripts/puntaje.gd" id="18_puntaje"]
 [ext_resource type="PackedScene" uid="uid://d0fnaw143q5gn" path="res://escenas/ayudas.tscn" id="19_cegan"]
@@ -93,14 +91,8 @@ mantener = false
 danio = 1
 cadencia = 0.167
 
-[node name="Interactuar" type="Node" parent="Arbitro" unique_id=1922724733]
-script = ExtResource("7_inter")
-
 [node name="Rodar" type="Node" parent="Arbitro" unique_id=2083267421]
 script = ExtResource("15_rodar")
-
-[node name="Ruido" type="Node" parent="Arbitro" unique_id=1219359412]
-script = ExtResource("16_ruido")
 
 [node name="LuzJugador" type="OmniLight3D" parent="Arbitro" unique_id=1811057180]
 visible = false
