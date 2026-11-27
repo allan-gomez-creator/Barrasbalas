@@ -1,8 +1,8 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://tiq1h7hwgx07"]
 
-[ext_resource type="Script" path="res://scripts/menu.gd" id="1_menu"]
-[ext_resource type="Theme" path="res://escenas/tema.tres" id="2_tema"]
-[ext_resource type="FontFile" path="res://assets/kenney_fonts/kenney_blocks.ttf" id="3_titulo"]
+[ext_resource type="Script" uid="uid://bnjxa3yleafqy" path="res://scripts/menu.gd" id="1_menu"]
+[ext_resource type="Theme" uid="uid://dnvb7cgkxxn1y" path="res://escenas/tema.tres" id="2_tema"]
+[ext_resource type="FontFile" uid="uid://4mel10712gn6" path="res://assets/kenney_fonts/kenney_blocks.ttf" id="3_titulo"]
 [ext_resource type="AudioStream" uid="uid://dsf752dxpm3dc" path="res://cantico.mp3" id="4_cantico"]
 
 [sub_resource type="Environment" id="Environment_noche"]
@@ -20,7 +20,6 @@ size = Vector3(60, 1, 16)
 
 [sub_resource type="StandardMaterial3D" id="Material_cancha"]
 albedo_color = Color(0.2, 0.5, 0.22, 1)
-roughness = 1.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_linea"]
 size = Vector3(60, 0.02, 0.12)
@@ -53,52 +52,52 @@ corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
 
-[node name="Menu" type="Node"]
+[node name="Menu" type="Node" unique_id=713786237]
 script = ExtResource("1_menu")
 
-[node name="Mundo" type="Node3D" parent="."]
+[node name="Mundo" type="Node3D" parent="." unique_id=117404001]
 
-[node name="Entorno" type="WorldEnvironment" parent="Mundo"]
+[node name="Entorno" type="WorldEnvironment" parent="Mundo" unique_id=1391042926]
 environment = SubResource("Environment_noche")
 
-[node name="Luna" type="DirectionalLight3D" parent="Mundo"]
+[node name="Luna" type="DirectionalLight3D" parent="Mundo" unique_id=2021502440]
 transform = Transform3D(0.866, -0.25, 0.433, 0, 0.866, 0.5, -0.5, -0.433, 0.75, 0, 8, 6)
 light_color = Color(0.75, 0.8, 1, 1)
 light_energy = 0.6
 shadow_enabled = true
 
-[node name="Reflector1" type="SpotLight3D" parent="Mundo"]
+[node name="Reflector1" type="SpotLight3D" parent="Mundo" unique_id=1268950224]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866, 0, -0.866, 0.5, 4.5, 9, 6)
 light_color = Color(1, 0.95, 0.8, 1)
 light_energy = 6.0
 spot_range = 25.0
 spot_angle = 30.0
 
-[node name="Reflector2" type="SpotLight3D" parent="Mundo"]
+[node name="Reflector2" type="SpotLight3D" parent="Mundo" unique_id=97873026]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866, 0, -0.866, 0.5, -2, 9, 6)
 light_color = Color(1, 0.95, 0.8, 1)
 light_energy = 3.0
 spot_range = 25.0
 spot_angle = 30.0
 
-[node name="Cancha" type="MeshInstance3D" parent="Mundo"]
+[node name="Cancha" type="MeshInstance3D" parent="Mundo" unique_id=281711061]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 3)
 mesh = SubResource("BoxMesh_cancha")
 surface_material_override/0 = SubResource("Material_cancha")
 
-[node name="Linea" type="MeshInstance3D" parent="Mundo"]
+[node name="Linea" type="MeshInstance3D" parent="Mundo" unique_id=100274663]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 2.2)
 mesh = SubResource("BoxMesh_linea")
 surface_material_override/0 = SubResource("Material_linea")
 
-[node name="Camara" type="Camera3D" parent="Mundo"]
+[node name="Camara" type="Camera3D" parent="Mundo" unique_id=1706445050]
 transform = Transform3D(1, 0, 0, 0, 0.9781476, 0.2079117, 0, -0.2079117, 0.9781476, 1.5, 3.4, 11.5)
-fov = 45.0
 current = true
+fov = 45.0
 
-[node name="Interfaz" type="CanvasLayer" parent="."]
+[node name="Interfaz" type="CanvasLayer" parent="." unique_id=702999033]
 
-[node name="Pantalla" type="Control" parent="Interfaz"]
+[node name="Pantalla" type="Control" parent="Interfaz" unique_id=581246924]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -107,7 +106,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_tema")
 
-[node name="Sombra" type="TextureRect" parent="Interfaz/Pantalla"]
+[node name="Sombra" type="TextureRect" parent="Interfaz/Pantalla" unique_id=102292995]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -117,7 +116,7 @@ mouse_filter = 2
 texture = SubResource("GradientTexture2D_sombra")
 expand_mode = 1
 
-[node name="Titulo" type="Label" parent="Interfaz/Pantalla"]
+[node name="Titulo" type="Label" parent="Interfaz/Pantalla" unique_id=487353927]
 layout_mode = 0
 offset_left = 56.0
 offset_top = 60.0
@@ -130,7 +129,7 @@ theme_override_fonts/font = ExtResource("3_titulo")
 theme_override_font_sizes/font_size = 56
 text = "BARRASBALAS"
 
-[node name="Subtitulo" type="Label" parent="Interfaz/Pantalla"]
+[node name="Subtitulo" type="Label" parent="Interfaz/Pantalla" unique_id=857213010]
 layout_mode = 0
 offset_left = 60.0
 offset_top = 146.0
@@ -139,7 +138,7 @@ offset_bottom = 180.0
 theme_override_font_sizes/font_size = 26
 text = "El árbitro contra la barra"
 
-[node name="Botones" type="VBoxContainer" parent="Interfaz/Pantalla"]
+[node name="Botones" type="VBoxContainer" parent="Interfaz/Pantalla" unique_id=908482545]
 layout_mode = 0
 offset_left = 60.0
 offset_top = 230.0
@@ -147,28 +146,28 @@ offset_right = 340.0
 offset_bottom = 520.0
 theme_override_constants/separation = 16
 
-[node name="Jugar" type="Button" parent="Interfaz/Pantalla/Botones"]
+[node name="Jugar" type="Button" parent="Interfaz/Pantalla/Botones" unique_id=2010696381]
 custom_minimum_size = Vector2(280, 56)
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 text = "Jugar"
 
-[node name="ComoJugar" type="Button" parent="Interfaz/Pantalla/Botones"]
+[node name="ComoJugar" type="Button" parent="Interfaz/Pantalla/Botones" unique_id=1221632289]
 custom_minimum_size = Vector2(280, 50)
 layout_mode = 2
 text = "Cómo jugar"
 
-[node name="Creditos" type="Button" parent="Interfaz/Pantalla/Botones"]
+[node name="Creditos" type="Button" parent="Interfaz/Pantalla/Botones" unique_id=2039312930]
 custom_minimum_size = Vector2(280, 50)
 layout_mode = 2
 text = "Créditos"
 
-[node name="Salir" type="Button" parent="Interfaz/Pantalla/Botones"]
+[node name="Salir" type="Button" parent="Interfaz/Pantalla/Botones" unique_id=1480451622]
 custom_minimum_size = Vector2(280, 50)
 layout_mode = 2
 text = "Salir"
 
-[node name="Record" type="Label" parent="Interfaz/Pantalla"]
+[node name="Record" type="Label" parent="Interfaz/Pantalla" unique_id=1405223148]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -181,7 +180,7 @@ grow_vertical = 0
 theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
 text = "Récord: 0 puntos"
 
-[node name="Pie" type="Label" parent="Interfaz/Pantalla"]
+[node name="Pie" type="Label" parent="Interfaz/Pantalla" unique_id=613114740]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -195,7 +194,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 0.7)
 theme_override_font_sizes/font_size = 16
 text = "Allan Gómez · Juan Manuel Benítez Skolik · Martín Bonilla Cuéllar — Uniempresarial 2026"
 
-[node name="PanelComoJugar" type="PanelContainer" parent="Interfaz/Pantalla"]
+[node name="PanelComoJugar" type="PanelContainer" parent="Interfaz/Pantalla" unique_id=463928913]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -211,18 +210,18 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("Panel_solido")
 
-[node name="Caja" type="VBoxContainer" parent="Interfaz/Pantalla/PanelComoJugar"]
+[node name="Caja" type="VBoxContainer" parent="Interfaz/Pantalla/PanelComoJugar" unique_id=1177013848]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Titulo" type="Label" parent="Interfaz/Pantalla/PanelComoJugar/Caja"]
+[node name="Titulo" type="Label" parent="Interfaz/Pantalla/PanelComoJugar/Caja" unique_id=1708107405]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
 theme_override_font_sizes/font_size = 34
 text = "Cómo jugar"
 horizontal_alignment = 1
 
-[node name="Texto" type="Label" parent="Interfaz/Pantalla/PanelComoJugar/Caja"]
+[node name="Texto" type="Label" parent="Interfaz/Pantalla/PanelComoJugar/Caja" unique_id=696599548]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 19
@@ -233,20 +232,19 @@ Moverse: A  D  o flechas        Saltar: Espacio
 Tarjeta: apunta con el mouse y clic izquierdo
 Aerosol: clic derecho (ciega a la barra 3 s)
 Esquivar: Shift        Rodar: Q
-Hacer ruido: R        Interactuar: mantener E
 Pausa: Esc
 
 Violeta y \"!\": ese barrista va a atacar.
 En el tiempo muerto toma agua para recuperar energía."
 autowrap_mode = 3
 
-[node name="Volver" type="Button" parent="Interfaz/Pantalla/PanelComoJugar/Caja"]
+[node name="Volver" type="Button" parent="Interfaz/Pantalla/PanelComoJugar/Caja" unique_id=749658000]
 custom_minimum_size = Vector2(220, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Volver"
 
-[node name="PanelCreditos" type="PanelContainer" parent="Interfaz/Pantalla"]
+[node name="PanelCreditos" type="PanelContainer" parent="Interfaz/Pantalla" unique_id=2034767720]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -262,18 +260,18 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("Panel_solido")
 
-[node name="Caja" type="VBoxContainer" parent="Interfaz/Pantalla/PanelCreditos"]
+[node name="Caja" type="VBoxContainer" parent="Interfaz/Pantalla/PanelCreditos" unique_id=487276245]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Titulo" type="Label" parent="Interfaz/Pantalla/PanelCreditos/Caja"]
+[node name="Titulo" type="Label" parent="Interfaz/Pantalla/PanelCreditos/Caja" unique_id=185353293]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
 theme_override_font_sizes/font_size = 34
 text = "Créditos"
 horizontal_alignment = 1
 
-[node name="Texto" type="Label" parent="Interfaz/Pantalla/PanelCreditos/Caja"]
+[node name="Texto" type="Label" parent="Interfaz/Pantalla/PanelCreditos/Caja" unique_id=1088452658]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 18
@@ -289,13 +287,13 @@ Detalle completo en CREDITOS.txt"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Volver" type="Button" parent="Interfaz/Pantalla/PanelCreditos/Caja"]
+[node name="Volver" type="Button" parent="Interfaz/Pantalla/PanelCreditos/Caja" unique_id=1885384704]
 custom_minimum_size = Vector2(220, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Volver"
 
-[node name="Musica" type="AudioStreamPlayer" parent="."]
+[node name="Musica" type="AudioStreamPlayer" parent="." unique_id=886595837]
 stream = ExtResource("4_cantico")
 volume_db = -12.0
 autoplay = true
