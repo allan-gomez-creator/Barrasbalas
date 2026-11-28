@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://ca4oxo0uio3nj" path="res://scripts/luces_estadio.gd" id="7_luces"]
 [ext_resource type="Script" uid="uid://7edba2v7mlsv" path="res://scripts/zonas.gd" id="8_zonas"]
 [ext_resource type="Script" uid="uid://bcke5yemem1vk" path="res://scripts/gradas.gd" id="9_gradas"]
+[ext_resource type="Script" path="res://scripts/plataforma.gd" id="10_plataforma"]
 
 [sub_resource type="StandardMaterial3D" id="MatCancha"]
 albedo_color = Color(0.3, 0.48, 0.32, 1)
@@ -201,6 +202,10 @@ mesh = SubResource("LineaCortaMalla")
 
 [node name="TribunaIzq" type="StaticBody3D" parent="Plataformas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0.4, 0)
+script = ExtResource("10_plataforma")
+color_cuerpo = Color(0.4, 0.43, 0.5, 1)
+con_franja = false
+con_patas = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/TribunaIzq"]
 mesh = SubResource("Trib9Malla")
@@ -210,6 +215,10 @@ shape = SubResource("Trib9Forma")
 
 [node name="TribunaDer" type="StaticBody3D" parent="Plataformas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0.4, 0)
+script = ExtResource("10_plataforma")
+color_cuerpo = Color(0.4, 0.43, 0.5, 1)
+con_franja = false
+con_patas = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/TribunaDer"]
 mesh = SubResource("Trib9Malla")
@@ -219,6 +228,7 @@ shape = SubResource("Trib9Forma")
 
 [node name="Valla1" type="StaticBody3D" parent="Plataformas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.9, 0)
+script = ExtResource("10_plataforma")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/Valla1"]
 mesh = SubResource("VallaMalla")
@@ -228,6 +238,10 @@ shape = SubResource("VallaForma")
 
 [node name="TribunaZ2a" type="StaticBody3D" parent="Plataformas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 0.4, 0)
+script = ExtResource("10_plataforma")
+color_cuerpo = Color(0.4, 0.43, 0.5, 1)
+con_franja = false
+con_patas = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/TribunaZ2a"]
 mesh = SubResource("Trib4Malla")
@@ -237,6 +251,7 @@ shape = SubResource("Trib4Forma")
 
 [node name="Valla2" type="StaticBody3D" parent="Plataformas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.5, 0.9, 0)
+script = ExtResource("10_plataforma")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/Valla2"]
 mesh = SubResource("VallaMalla")
@@ -246,6 +261,10 @@ shape = SubResource("VallaForma")
 
 [node name="TribunaZ2b" type="StaticBody3D" parent="Plataformas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0.4, 0)
+script = ExtResource("10_plataforma")
+color_cuerpo = Color(0.4, 0.43, 0.5, 1)
+con_franja = false
+con_patas = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/TribunaZ2b"]
 mesh = SubResource("Trib6Malla")
@@ -255,6 +274,10 @@ shape = SubResource("Trib6Forma")
 
 [node name="GradaAltaZ2" type="StaticBody3D" parent="Plataformas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5, 1.0, 0)
+script = ExtResource("10_plataforma")
+color_cuerpo = Color(0.4, 0.43, 0.5, 1)
+con_franja = false
+con_patas = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/GradaAltaZ2"]
 mesh = SubResource("Trib3Malla")
@@ -264,6 +287,10 @@ shape = SubResource("Trib3Forma")
 
 [node name="TribunaZ3" type="StaticBody3D" parent="Plataformas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 0.4, 0)
+script = ExtResource("10_plataforma")
+color_cuerpo = Color(0.4, 0.43, 0.5, 1)
+con_franja = false
+con_patas = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plataformas/TribunaZ3"]
 mesh = SubResource("Trib4Malla")
